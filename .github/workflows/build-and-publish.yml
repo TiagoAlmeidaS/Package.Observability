@@ -1,0 +1,44 @@
+name: Build & Publish NuGet Package (.NET 8)
+
+on:
+  workflow_call:
+    inputs:
+      projectPath:
+        description: 'Caminho do projeto .csproj a ser empacotado'
+        required: true
+        type: string
+      version:
+        description: 'Versão do pacote NuGet'
+        required: true
+        type: string
+      nugetSource:
+        description: 'URL do repositório NuGet (ex: https://api.nuget.org/v3/index.json)'
+        required: true
+        type: string
+    secrets:
+      NUGET_API_KEY:
+        required: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ${{ inputs.projectPath }}
+
+      - name: Build
+        run: dotnet build ${{ inputs.projectPath }} --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack ${{ inputs.projectPath }} --configuration Release --no-build -p:PackageVersion=${{ inputs.version }} -o ./nupkgs
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ inputs.nugetSource }} --skip-duplicate
