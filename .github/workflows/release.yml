@@ -1,0 +1,86 @@
+name: Release Package.Observability
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'Package.Observability/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.0.0)'
+        required: true
+        type: string
+
+env:
+  PROJECT_PATH: 'Package.Observability/Package.Observability.csproj'
+  NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
+
+jobs:
+  get-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            # Generate version based on commit count and short SHA
+            COMMIT_COUNT=$(git rev-list --count HEAD)
+            SHORT_SHA=$(git rev-parse --short HEAD)
+            VERSION="1.0.${COMMIT_COUNT}-${SHORT_SHA}"
+            echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          fi
+
+  build-and-publish:
+    needs: get-version
+    uses: ./.github/workflows/build-and-publish.yml
+    with:
+      projectPath: 'Package.Observability/Package.Observability.csproj'
+      version: ${{ needs.get-version.outputs.version }}
+      nugetSource: 'https://api.nuget.org/v3/index.json'
+    secrets:
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+  create-release:
+    needs: [get-version, build-and-publish]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ needs.get-version.outputs.version }}
+          release_name: Package.Observability v${{ needs.get-version.outputs.version }}
+          body: |
+            ## Package.Observability v${{ needs.get-version.outputs.version }}
+            
+            ### Instalação
+            ```bash
+            dotnet add package Package.Observability --version ${{ needs.get-version.outputs.version }}
+            ```
+            
+            ### Novidades
+            - Versão ${{ needs.get-version.outputs.version }} do pacote Package.Observability
+            - Suporte completo para observabilidade em .NET 8
+            - Métricas, Logs e Tracing integrados
+            
+            ### Links
+            - [NuGet Package](https://www.nuget.org/packages/Package.Observability/${{ needs.get-version.outputs.version }})
+            - [Documentação](https://github.com/${{ github.repository }}/blob/main/README.md)
+          draft: false
+          prerelease: false
