@@ -23,6 +23,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+// Expor endpoint de métricas Prometheus
+app.MapPrometheusScrapingEndpoint();
+
 // Log de inicialização
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
 logger.LogInformation("WebApi.Example iniciada com observabilidade completa");
@@ -30,3 +33,5 @@ logger.LogInformation("Métricas disponíveis em: http://localhost:9090/metrics"
 logger.LogInformation("Swagger disponível em: https://localhost:7000/swagger");
 
 app.Run();
+
+public partial class Program { }
