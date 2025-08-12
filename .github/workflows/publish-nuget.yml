@@ -71,7 +71,7 @@ jobs:
       run: dotnet build Package.Observability.sln --no-restore --configuration Release
 
     - name: Test
-      run: dotnet test AlbionOnlineSniffer.sln --no-build --configuration Release --verbosity normal
+      run: dotnet test Package.Observability.sln --no-build --configuration Release --verbosity normal
 
     - name: Pack
       run: |
