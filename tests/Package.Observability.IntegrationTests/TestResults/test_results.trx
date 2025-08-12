@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ad0620e9-fa52-44e0-a1da-1a6bf7466bd4" name="@cursor 2025-08-12 00:52:42" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-08-12T00:52:42.9400628+00:00" queuing="2025-08-12T00:52:42.9400629+00:00" start="2025-08-12T00:52:41.5825487+00:00" finish="2025-08-12T00:52:42.9467885+00:00" />
+  <TestSettings name="default" id="f7765d9f-5436-4a69-8919-83bd68e650ea">
+    <Deployment runDeploymentRoot="_cursor_2025-08-12_00_52_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e1048408-cc47-4fdc-8aaa-74dc540fd6f6" testId="33f033f9-e584-4d3a-8c9c-09d11ea3bea5" testName="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.GET_Error_should_return_500" computerName="cursor" duration="00:00:00.0160017" startTime="2025-08-12T00:52:42.5777913+00:00" endTime="2025-08-12T00:52:42.5777914+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1048408-cc47-4fdc-8aaa-74dc540fd6f6" />
+    <UnitTestResult executionId="aa81b30f-975d-4bc6-a51f-e6439ccb1e3e" testId="f54808bc-038c-5d0f-a591-9e5cadd97792" testName="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.GET_WeatherForecast_should_return_200_and_items" computerName="cursor" duration="00:00:00.5579895" startTime="2025-08-12T00:52:42.5608588+00:00" endTime="2025-08-12T00:52:42.5608590+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aa81b30f-975d-4bc6-a51f-e6439ccb1e3e" />
+    <UnitTestResult executionId="bb35c57a-abcb-47b6-8c11-b85e55e70292" testId="fc258b90-4f0c-ca70-abe7-cc2b12a2dcdc" testName="Package.Observability.IntegrationTests.ServiceRegistrationTests.Should_register_ObservabilityOptions_and_OpenTelemetry_components" computerName="cursor" duration="00:00:00.2812355" startTime="2025-08-12T00:52:42.2832283+00:00" endTime="2025-08-12T00:52:42.2832433+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bb35c57a-abcb-47b6-8c11-b85e55e70292" />
+    <UnitTestResult executionId="be11b3eb-d65e-4e78-8f30-1131375b3fe2" testId="396cd504-b9c3-edd9-1951-26e91f2568d6" testName="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.Prometheus_metrics_endpoint_should_be_exposed_and_contain_runtime_metrics" computerName="cursor" duration="00:00:00.2199310" startTime="2025-08-12T00:52:42.7981588+00:00" endTime="2025-08-12T00:52:42.7981590+00:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be11b3eb-d65e-4e78-8f30-1131375b3fe2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Package.Observability.IntegrationTests.ServiceRegistrationTests.Should_register_ObservabilityOptions_and_OpenTelemetry_components" storage="/workspace/tests/package.observability.integrationtests/bin/release/net8.0/package.observability.integrationtests.dll" id="fc258b90-4f0c-ca70-abe7-cc2b12a2dcdc">
+      <Execution id="bb35c57a-abcb-47b6-8c11-b85e55e70292" />
+      <TestMethod codeBase="/workspace/tests/Package.Observability.IntegrationTests/bin/Release/net8.0/Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.ServiceRegistrationTests" name="Should_register_ObservabilityOptions_and_OpenTelemetry_components" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.GET_Error_should_return_500" storage="/workspace/tests/package.observability.integrationtests/bin/release/net8.0/package.observability.integrationtests.dll" id="33f033f9-e584-4d3a-8c9c-09d11ea3bea5">
+      <Execution id="e1048408-cc47-4fdc-8aaa-74dc540fd6f6" />
+      <TestMethod codeBase="/workspace/tests/Package.Observability.IntegrationTests/bin/Release/net8.0/Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.EndpointsAndMetricsTests" name="GET_Error_should_return_500" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.Prometheus_metrics_endpoint_should_be_exposed_and_contain_runtime_metrics" storage="/workspace/tests/package.observability.integrationtests/bin/release/net8.0/package.observability.integrationtests.dll" id="396cd504-b9c3-edd9-1951-26e91f2568d6">
+      <Execution id="be11b3eb-d65e-4e78-8f30-1131375b3fe2" />
+      <TestMethod codeBase="/workspace/tests/Package.Observability.IntegrationTests/bin/Release/net8.0/Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.EndpointsAndMetricsTests" name="Prometheus_metrics_endpoint_should_be_exposed_and_contain_runtime_metrics" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.EndpointsAndMetricsTests.GET_WeatherForecast_should_return_200_and_items" storage="/workspace/tests/package.observability.integrationtests/bin/release/net8.0/package.observability.integrationtests.dll" id="f54808bc-038c-5d0f-a591-9e5cadd97792">
+      <Execution id="aa81b30f-975d-4bc6-a51f-e6439ccb1e3e" />
+      <TestMethod codeBase="/workspace/tests/Package.Observability.IntegrationTests/bin/Release/net8.0/Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.EndpointsAndMetricsTests" name="GET_WeatherForecast_should_return_200_and_items" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="33f033f9-e584-4d3a-8c9c-09d11ea3bea5" executionId="e1048408-cc47-4fdc-8aaa-74dc540fd6f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f54808bc-038c-5d0f-a591-9e5cadd97792" executionId="aa81b30f-975d-4bc6-a51f-e6439ccb1e3e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc258b90-4f0c-ca70-abe7-cc2b12a2dcdc" executionId="bb35c57a-abcb-47b6-8c11-b85e55e70292" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="396cd504-b9c3-edd9-1951-26e91f2568d6" executionId="be11b3eb-d65e-4e78-8f30-1131375b3fe2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 8.0.18)
+[xUnit.net 00:00:00.06]   Discovering: Package.Observability.IntegrationTests
+[xUnit.net 00:00:00.09]   Discovered:  Package.Observability.IntegrationTests
+[xUnit.net 00:00:00.09]   Starting:    Package.Observability.IntegrationTests
+[xUnit.net 00:00:00.97]   Finished:    Package.Observability.IntegrationTests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

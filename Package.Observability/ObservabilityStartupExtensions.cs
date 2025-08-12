@@ -36,7 +36,7 @@ public static class ObservabilityStartupExtensions
         services.AddOpenTelemetry()
             .ConfigureResource(resource => resource
                 .AddService(serviceName: options.ServiceName)
-                .AddAttributes(options.AdditionalLabels))
+                .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))))
             .WithMetrics(metrics => ConfigureMetrics(metrics, options))
             .WithTracing(tracing => ConfigureTracing(tracing, options));
 
@@ -90,7 +90,7 @@ public static class ObservabilityStartupExtensions
         services.AddOpenTelemetry()
             .ConfigureResource(resource => resource
                 .AddService(serviceName: options.ServiceName)
-                .AddAttributes(options.AdditionalLabels))
+                .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))))
             .WithMetrics(metrics => ConfigureMetrics(metrics, options))
             .WithTracing(tracing => ConfigureTracing(tracing, options));
 
@@ -112,6 +112,9 @@ public static class ObservabilityStartupExtensions
     {
         if (!options.EnableMetrics) return;
 
+        // Ensure custom meters are included
+        metrics.AddMeter(options.ServiceName);
+
         if (options.EnableRuntimeInstrumentation)
             metrics.AddRuntimeInstrumentation();
 
@@ -121,17 +124,16 @@ public static class ObservabilityStartupExtensions
         if (options.EnableHttpClientInstrumentation)
             metrics.AddHttpClientInstrumentation();
 
-        // Add Prometheus exporter
-        metrics.AddPrometheusExporter(prometheusOptions =>
-        {
-            prometheusOptions.StartHttpListener = true;
-            prometheusOptions.HttpListenerPrefixes = new[] { $"http://*:{options.PrometheusPort}/" };
-        });
+        // Add Prometheus exporter (ASP.NET Core scraping endpoint)
+        metrics.AddPrometheusExporter();
     }
 
     private static void ConfigureTracing(TracerProviderBuilder tracing, ObservabilityOptions options)
     {
         if (!options.EnableTracing) return;
+
+        // Ensure custom ActivitySource is included
+        tracing.AddSource(options.ServiceName);
 
         if (options.EnableAspNetCoreInstrumentation)
             tracing.AddAspNetCoreInstrumentation();
