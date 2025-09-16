@@ -54,13 +54,31 @@ public static class ObservabilityStartupExtensions
             // Registrar ResourceManager
             services.AddSingleton<ResourceManager>();
 
+               // Configurar ObservabilityMetrics
+               System.Diagnostics.Debug.WriteLine($"Setting ObservabilityMetrics.EnableMetrics to: {options.EnableMetrics}");
+               ObservabilityMetrics.SetMetricsEnabled(options.EnableMetrics);
+               System.Diagnostics.Debug.WriteLine($"ObservabilityMetrics.IsMetricsEnabled is now: {ObservabilityMetrics.IsMetricsEnabled}");
+               
+               // Debug adicional para verificar se a configuração está sendo aplicada
+               System.Diagnostics.Debug.WriteLine($"Configuration values - EnableMetrics: {options.EnableMetrics}, EnableTracing: {options.EnableTracing}, EnableLogging: {options.EnableLogging}");
+
             // Configure OpenTelemetry
-            services.AddOpenTelemetry()
+            var openTelemetryBuilder = services.AddOpenTelemetry()
                 .ConfigureResource(resource => resource
                     .AddService(serviceName: options.ServiceName)
-                    .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))))
-                .WithMetrics(metrics => ConfigureMetrics(metrics, options))
-                .WithTracing(tracing => ConfigureTracing(tracing, options));
+                    .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))));
+
+            // Only configure metrics if enabled
+            if (options.EnableMetrics)
+            {
+                openTelemetryBuilder.WithMetrics(metrics => ConfigureMetrics(metrics, options));
+            }
+
+            // Only configure tracing if enabled
+            if (options.EnableTracing)
+            {
+                openTelemetryBuilder.WithTracing(tracing => ConfigureTracing(tracing, options));
+            }
 
             // Configure Serilog
             if (options.EnableLogging)

@@ -9,6 +9,27 @@ public static class ObservabilityMetrics
 {
     private static readonly Dictionary<string, Meter> _meters = new();
     private static readonly object _lock = new();
+    private static bool _metricsEnabled = true;
+
+    /// <summary>
+    /// Sets whether metrics are enabled
+    /// </summary>
+    /// <param name="enabled">True to enable metrics, false to disable</param>
+    public static void SetMetricsEnabled(bool enabled)
+    {
+        _metricsEnabled = enabled;
+        
+        // Se desabilitando métricas, limpar todas as métricas existentes
+        if (!enabled)
+        {
+            DisposeAll();
+        }
+    }
+
+    /// <summary>
+    /// Gets whether metrics are currently enabled
+    /// </summary>
+    public static bool IsMetricsEnabled => _metricsEnabled;
 
     /// <summary>
     /// Gets or creates a Meter for the specified service name
@@ -18,6 +39,9 @@ public static class ObservabilityMetrics
     /// <returns>Meter instance</returns>
     public static Meter GetOrCreateMeter(string serviceName, string? version = null)
     {
+        if (!_metricsEnabled)
+            throw new InvalidOperationException("Metrics are disabled");
+
         if (string.IsNullOrWhiteSpace(serviceName))
             throw new ArgumentException("Service name cannot be null or empty", nameof(serviceName));
 

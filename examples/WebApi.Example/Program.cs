@@ -23,8 +23,16 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-// Expor endpoint de métricas Prometheus
-app.MapPrometheusScrapingEndpoint();
+// Expor endpoint de métricas Prometheus apenas se métricas estiverem habilitadas
+var observabilityConfig = builder.Configuration.GetSection("Observability");
+var enableMetrics = observabilityConfig.GetValue<bool>("EnableMetrics", true); // Default true para manter compatibilidade
+if (enableMetrics)
+{
+    app.MapPrometheusScrapingEndpoint();
+}
+
+// Expor endpoint de health checks
+app.MapHealthChecks("/health");
 
 // Log de inicialização
 var logger = app.Services.GetRequiredService<ILogger<Program>>();

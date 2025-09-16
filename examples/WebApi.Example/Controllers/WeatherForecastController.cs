@@ -16,21 +16,66 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
     
-    // Métricas customizadas
-    private static readonly Counter<int> _requestCounter = 
-        ObservabilityMetrics.CreateCounter<int>("WebApi.Example", "weather_requests_total", "count", "Total de requisições para weather");
-    
-    private static readonly Histogram<double> _requestDuration = 
-        ObservabilityMetrics.CreateHistogram<double>("WebApi.Example", "weather_request_duration", "ms", "Duração das requisições weather");
+           // Métricas customizadas (criadas condicionalmente)
+           private Counter<int>? _requestCounter;
+           private Histogram<double>? _requestDuration;
+           private bool _metricsInitialized = false;
+           private readonly object _metricsLock = new object();
+           private Meter? _meter;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
+           public WeatherForecastController(ILogger<WeatherForecastController> logger)
+           {
+               _logger = logger;
+           }
+
+           public void Dispose()
+           {
+               _meter?.Dispose();
+           }
+
+           private void InitializeMetricsIfNeeded()
+           {
+               if (_metricsInitialized) return;
+
+               lock (_metricsLock)
+               {
+                   if (_metricsInitialized) return;
+
+                   try
+                   {
+                       // Debug: verificar se métricas estão habilitadas
+                       Debug.WriteLine($"InitializeMetricsIfNeeded - ObservabilityMetrics.IsMetricsEnabled: {ObservabilityMetrics.IsMetricsEnabled}");
+                       
+                       // Verificar se métricas estão habilitadas antes de criar
+                       if (!ObservabilityMetrics.IsMetricsEnabled)
+                       {
+                           Debug.WriteLine("InitializeMetricsIfNeeded - Métricas desabilitadas, não criando métricas");
+                           _metricsInitialized = true;
+                           return;
+                       }
+
+                       // Criar um Meter específico para esta instância
+                       _meter = new Meter("WebApi.Example", "1.0.0");
+                       _requestCounter = _meter.CreateCounter<int>("weather_requests_total", "count", "Total de requisições para weather");
+                       _requestDuration = _meter.CreateHistogram<double>("weather_request_duration", "ms", "Duração das requisições weather");
+                       _metricsInitialized = true;
+                       Debug.WriteLine("InitializeMetricsIfNeeded - Métricas criadas com sucesso");
+                   }
+                   catch (Exception ex)
+                   {
+                       // Log other unexpected errors during metric initialization
+                       Debug.WriteLine($"InitializeMetricsIfNeeded - Error initializing metrics: {ex.Message}");
+                       _metricsInitialized = true; // Prevent repeated attempts
+                   }
+               }
+           }
 
     [HttpGet(Name = "GetWeatherForecast")]
     public async Task<IEnumerable<WeatherForecast>> Get()
     {
+        // Inicializar métricas se necessário
+        InitializeMetricsIfNeeded();
+        
         // Criar trace customizado
         using var activity = ActivitySourceFactory.StartActivity("WebApi.Example", "GetWeatherForecast");
         
@@ -57,8 +102,8 @@ public class WeatherForecastController : ControllerBase
             
             _logger.LogInformation("Previsão do tempo gerada com sucesso. {Count} dias retornados", forecasts.Length);
             
-            // Incrementar contador de sucesso
-            _requestCounter.Add(1, new KeyValuePair<string, object?>("status", "success"));
+            // Incrementar contador de sucesso (se métricas estão habilitadas)
+            _requestCounter?.Add(1, new KeyValuePair<string, object?>("status", "success"));
             
             return forecasts;
         }
@@ -69,15 +114,15 @@ public class WeatherForecastController : ControllerBase
             // Marcar trace como erro
             activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
             
-            // Incrementar contador de erro
-            _requestCounter.Add(1, new KeyValuePair<string, object?>("status", "error"));
+            // Incrementar contador de erro (se métricas estão habilitadas)
+            _requestCounter?.Add(1, new KeyValuePair<string, object?>("status", "error"));
             
             throw;
         }
         finally
         {
-            // Registrar duração
-            _requestDuration.Record(stopwatch.ElapsedMilliseconds);
+            // Registrar duração (se métricas estão habilitadas)
+            _requestDuration?.Record(stopwatch.ElapsedMilliseconds);
             
             _logger.LogInformation("Requisição processada em {Duration}ms", stopwatch.ElapsedMilliseconds);
         }
@@ -104,6 +149,9 @@ public class WeatherForecastController : ControllerBase
     [HttpGet("error")]
     public IActionResult GetError()
     {
+        // Inicializar métricas se necessário
+        InitializeMetricsIfNeeded();
+        
         using var activity = ActivitySourceFactory.StartActivity("WebApi.Example", "GetError");
         
         _logger.LogWarning("Endpoint de erro chamado intencionalmente");
@@ -117,7 +165,8 @@ public class WeatherForecastController : ControllerBase
             _logger.LogError(ex, "Erro simulado capturado");
             activity?.SetStatus(ActivityStatusCode.Error, ex.Message);
             
-            _requestCounter.Add(1, new KeyValuePair<string, object?>("status", "error"));
+            // Incrementar contador de erro (se métricas estão habilitadas)
+            _requestCounter?.Add(1, new KeyValuePair<string, object?>("status", "error"));
             
             return StatusCode(500, new { error = ex.Message, timestamp = DateTime.UtcNow });
         }
