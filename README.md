@@ -84,6 +84,71 @@ app.Run();
 | `EnableHttpClientInstrumentation` | `bool` | `true` | Habilita instrumentação HTTP Client |
 | `EnableAspNetCoreInstrumentation` | `bool` | `true` | Habilita instrumentação ASP.NET Core |
 
+## 📚 Documentação Detalhada
+
+Para configurações avançadas e exemplos específicos, consulte:
+
+- **[Documentação Completa](docs/README.md)** - Índice da documentação
+- **[Quick Start](docs/quick-start.md)** - Comece em 30 segundos
+- **[Guia de Uso Completo](docs/usage-guide.md)** - Documentação detalhada de uso
+- **[Exemplos de Configuração](docs/configuration-examples.md)** - Configurações para diferentes cenários
+- **[FAQ](docs/faq.md)** - Perguntas frequentes
+- **[Exemplo Sem Loki](examples/without-loki-example.md)** - Como usar sem Loki
+
+## 🔧 Configurações Flexíveis
+
+O pacote oferece máxima flexibilidade - você pode usar apenas os componentes que precisar:
+
+### Apenas Logs (Sem Loki)
+```csharp
+builder.Services.AddObservability(options =>
+{
+    options.ServiceName = "MeuServico";
+    options.EnableMetrics = false;      // Sem métricas
+    options.EnableTracing = false;      // Sem tracing
+    options.EnableLogging = true;       // Apenas logs
+    options.EnableConsoleLogging = true; // Apenas console
+    options.LokiUrl = "";              // Remove Loki
+});
+```
+
+### Apenas Métricas (Sem Logs e Tracing)
+```csharp
+builder.Services.AddObservability(options =>
+{
+    options.ServiceName = "MeuServico";
+    options.EnableMetrics = true;       // Apenas métricas
+    options.EnableTracing = false;      // Sem tracing
+    options.EnableLogging = false;      // Sem logs
+    options.PrometheusPort = 9090;     // Porta do Prometheus
+});
+```
+
+### Apenas Tracing (Sem Métricas e Logs)
+```csharp
+builder.Services.AddObservability(options =>
+{
+    options.ServiceName = "MeuServico";
+    options.EnableMetrics = false;      // Sem métricas
+    options.EnableTracing = true;       // Apenas tracing
+    options.EnableLogging = false;      // Sem logs
+    options.OtlpEndpoint = "http://jaeger:4317";
+});
+```
+
+### Configuração Completa (Produção)
+```csharp
+builder.Services.AddObservability(options =>
+{
+    options.ServiceName = "MeuServico";
+    options.EnableMetrics = true;
+    options.EnableTracing = true;
+    options.EnableLogging = true;
+    options.LokiUrl = "http://loki:3100";
+    options.OtlpEndpoint = "http://jaeger:4317";
+});
+```
+
 ## 🎯 Uso Avançado
 
 ### Configuração por Código

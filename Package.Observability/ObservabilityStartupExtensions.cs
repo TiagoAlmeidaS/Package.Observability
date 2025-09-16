@@ -8,6 +8,8 @@ using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Grafana.Loki;
+using Package.Observability.Exceptions;
+using Package.Observability.HealthChecks;
 
 namespace Package.Observability;
 
@@ -28,30 +30,59 @@ public static class ObservabilityStartupExtensions
         IConfiguration configuration, 
         string sectionName = "Observability")
     {
-        // Bind configuration
-        services.Configure<ObservabilityOptions>(configuration.GetSection(sectionName));
-        var options = configuration.GetSection(sectionName).Get<ObservabilityOptions>() ?? new ObservabilityOptions();
-
-        // Configure OpenTelemetry
-        services.AddOpenTelemetry()
-            .ConfigureResource(resource => resource
-                .AddService(serviceName: options.ServiceName)
-                .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))))
-            .WithMetrics(metrics => ConfigureMetrics(metrics, options))
-            .WithTracing(tracing => ConfigureTracing(tracing, options));
-
-        // Configure Serilog
-        if (options.EnableLogging)
+        try
         {
-            ConfigureSerilog(options);
-            services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.ClearProviders();
-                loggingBuilder.AddSerilog();
-            });
-        }
+            // Bind configuration
+            services.Configure<ObservabilityOptions>(configuration.GetSection(sectionName));
+            var options = configuration.GetSection(sectionName).Get<ObservabilityOptions>() ?? new ObservabilityOptions();
 
-        return services;
+            // Validar configuração
+            var validationResult = ConfigurationValidator.Validate(options);
+            if (!validationResult.IsValid)
+            {
+                throw new ObservabilityConfigurationException(
+                    $"Configuração de observabilidade inválida:\n{validationResult}");
+            }
+
+            // Log de avisos se houver
+            if (validationResult.Warnings.Count > 0)
+            {
+                // Em uma implementação real, você usaria um logger apropriado
+                System.Diagnostics.Debug.WriteLine($"Avisos na configuração de observabilidade: {string.Join(", ", validationResult.Warnings)}");
+            }
+
+            // Registrar ResourceManager
+            services.AddSingleton<ResourceManager>();
+
+            // Configure OpenTelemetry
+            services.AddOpenTelemetry()
+                .ConfigureResource(resource => resource
+                    .AddService(serviceName: options.ServiceName)
+                    .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))))
+                .WithMetrics(metrics => ConfigureMetrics(metrics, options))
+                .WithTracing(tracing => ConfigureTracing(tracing, options));
+
+            // Configure Serilog
+            if (options.EnableLogging)
+            {
+                ConfigureSerilog(options);
+                services.AddLogging(loggingBuilder =>
+                {
+                    loggingBuilder.ClearProviders();
+                    loggingBuilder.AddSerilog();
+                });
+            }
+
+            // Adicionar Health Checks
+            AddHealthChecks(services, options);
+
+            return services;
+        }
+        catch (Exception ex) when (!(ex is ObservabilityConfigurationException))
+        {
+            throw new ObservabilityConfigurationException(
+                "Erro ao configurar observabilidade", ex);
+        }
     }
 
     /// <summary>
@@ -201,5 +232,34 @@ public static class ObservabilityStartupExtensions
         }
 
         Log.Logger = loggerConfiguration.CreateLogger();
+    }
+
+    /// <summary>
+    /// Adiciona Health Checks para observabilidade
+    /// </summary>
+    /// <param name="services">Coleção de serviços</param>
+    /// <param name="options">Opções de observabilidade</param>
+    private static void AddHealthChecks(IServiceCollection services, ObservabilityOptions options)
+    {
+        services.AddHealthChecks()
+            .AddCheck<ObservabilityHealthCheck>("observability", tags: new[] { "observability", "general" });
+
+        if (options.EnableMetrics)
+        {
+            services.AddHealthChecks()
+                .AddCheck<MetricsHealthCheck>("metrics", tags: new[] { "observability", "metrics" });
+        }
+
+        if (options.EnableTracing)
+        {
+            services.AddHealthChecks()
+                .AddCheck<TracingHealthCheck>("tracing", tags: new[] { "observability", "tracing" });
+        }
+
+        if (options.EnableLogging)
+        {
+            services.AddHealthChecks()
+                .AddCheck<LoggingHealthCheck>("logging", tags: new[] { "observability", "logging" });
+        }
     }
 }

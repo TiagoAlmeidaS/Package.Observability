@@ -274,3 +274,6 @@ observability/data/
 prometheus-data/
 grafana-data/
 loki-data/
+
+# Coverage report
+coverage-report/
