@@ -27,7 +27,7 @@ public class HealthChecksTests
                     var config = new Dictionary<string, string?>
                     {
                         ["Observability:ServiceName"] = "TestService-Health",
-                        ["Observability:EnableMetrics"] = "true",
+                        ["Observability:EnableMetrics"] = "true", 
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:EnableLogging"] = "true",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString()
