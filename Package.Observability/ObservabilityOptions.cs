@@ -79,4 +79,66 @@ public class ObservabilityOptions
     /// Enable ASP.NET Core instrumentation for web applications
     /// </summary>
     public bool EnableAspNetCoreInstrumentation { get; set; } = true;
+
+    // Serilog-specific configurations
+
+    /// <summary>
+    /// Enable file logging output
+    /// </summary>
+    public bool EnableFileLogging { get; set; } = false;
+
+    /// <summary>
+    /// Path for file logging (default: Logs/{ServiceName}-.log)
+    /// </summary>
+    public string? FileLoggingPath { get; set; }
+
+    /// <summary>
+    /// Enable Seq logging integration
+    /// </summary>
+    public bool EnableSeqLogging { get; set; } = false;
+
+    /// <summary>
+    /// Seq endpoint URL for log aggregation
+    /// </summary>
+    public string? SeqUrl { get; set; }
+
+    /// <summary>
+    /// Enable Elasticsearch logging integration
+    /// </summary>
+    public bool EnableElasticsearchLogging { get; set; } = false;
+
+    /// <summary>
+    /// Elasticsearch endpoint URL for log aggregation
+    /// </summary>
+    public string? ElasticsearchUrl { get; set; }
+
+    /// <summary>
+    /// Custom output template for console logging
+    /// </summary>
+    public string? ConsoleOutputTemplate { get; set; }
+
+    /// <summary>
+    /// Custom output template for file logging
+    /// </summary>
+    public string? FileOutputTemplate { get; set; }
+
+    /// <summary>
+    /// Enable request logging middleware
+    /// </summary>
+    public bool EnableRequestLogging { get; set; } = true;
+
+    /// <summary>
+    /// Enable performance logging for slow requests (in milliseconds)
+    /// </summary>
+    public int? SlowRequestThreshold { get; set; } = 1000;
+
+    /// <summary>
+    /// Additional Serilog enrichers to include
+    /// </summary>
+    public List<string> AdditionalEnrichers { get; set; } = new();
+
+    /// <summary>
+    /// Custom properties to add to all log events
+    /// </summary>
+    public Dictionary<string, object> CustomProperties { get; set; } = new();
 }

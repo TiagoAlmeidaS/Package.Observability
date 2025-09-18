@@ -8,6 +8,8 @@ using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Grafana.Loki;
+using Serilog.Sinks.File;
+using Serilog.Sinks.Seq;
 using Package.Observability.Exceptions;
 using Package.Observability.HealthChecks;
 
@@ -54,6 +56,9 @@ public static class ObservabilityStartupExtensions
             // Registrar ResourceManager
             services.AddSingleton<ResourceManager>();
 
+            // Registrar SerilogService
+            services.AddSingleton<ISerilogService, SerilogService>();
+
                // Configurar ObservabilityMetrics
                System.Diagnostics.Debug.WriteLine($"Setting ObservabilityMetrics.EnableMetrics to: {options.EnableMetrics}");
                ObservabilityMetrics.SetMetricsEnabled(options.EnableMetrics);
@@ -89,6 +94,13 @@ public static class ObservabilityStartupExtensions
                     loggingBuilder.ClearProviders();
                     loggingBuilder.AddSerilog();
                 });
+            }
+
+            // Configure SerilogService
+            if (options.EnableLogging)
+            {
+                // Configure SerilogService after DI container is built
+                services.AddHostedService<SerilogServiceInitializer>();
             }
 
             // Adicionar Health Checks
@@ -225,8 +237,9 @@ public static class ObservabilityStartupExtensions
         // Console sink
         if (options.EnableConsoleLogging)
         {
-            loggerConfiguration.WriteTo.Console(
-                outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {ServiceName} {Message:lj}{NewLine}{Exception}");
+            var consoleTemplate = options.ConsoleOutputTemplate ?? 
+                "[{Timestamp:HH:mm:ss} {Level:u3}] {ServiceName} {Message:lj}{NewLine}{Exception}";
+            loggerConfiguration.WriteTo.Console(outputTemplate: consoleTemplate);
         }
 
         // Loki sink
@@ -247,6 +260,25 @@ public static class ObservabilityStartupExtensions
             loggerConfiguration.WriteTo.GrafanaLoki(
                 uri: options.LokiUrl,
                 labels: lokiLabels);
+        }
+
+        // File sink
+        if (options.EnableFileLogging)
+        {
+            var filePath = options.FileLoggingPath ?? $"Logs/{options.ServiceName}-.log";
+            var fileTemplate = options.FileOutputTemplate ?? 
+                "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {ServiceName} {Message:lj}{NewLine}{Exception}";
+            
+            loggerConfiguration.WriteTo.File(
+                filePath,
+                rollingInterval: RollingInterval.Day,
+                outputTemplate: fileTemplate);
+        }
+
+        // Add custom properties
+        foreach (var property in options.CustomProperties)
+        {
+            loggerConfiguration.Enrich.WithProperty(property.Key, property.Value);
         }
 
         Log.Logger = loggerConfiguration.CreateLogger();
@@ -277,7 +309,8 @@ public static class ObservabilityStartupExtensions
         if (options.EnableLogging)
         {
             services.AddHealthChecks()
-                .AddCheck<LoggingHealthCheck>("logging", tags: new[] { "observability", "logging" });
+                .AddCheck<LoggingHealthCheck>("logging", tags: new[] { "observability", "logging" })
+                .AddCheck<SerilogHealthCheck>("serilog", tags: new[] { "observability", "logging", "serilog" });
         }
     }
 }

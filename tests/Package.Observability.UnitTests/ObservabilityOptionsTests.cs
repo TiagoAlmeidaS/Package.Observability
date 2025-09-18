@@ -30,6 +30,22 @@ public class ObservabilityOptionsTests
         options.EnableRuntimeInstrumentation.Should().BeTrue();
         options.EnableHttpClientInstrumentation.Should().BeTrue();
         options.EnableAspNetCoreInstrumentation.Should().BeTrue();
+        
+        // Serilog-specific defaults
+        options.EnableFileLogging.Should().BeFalse();
+        options.FileLoggingPath.Should().BeNull();
+        options.EnableSeqLogging.Should().BeFalse();
+        options.SeqUrl.Should().BeNull();
+        options.EnableElasticsearchLogging.Should().BeFalse();
+        options.ElasticsearchUrl.Should().BeNull();
+        options.ConsoleOutputTemplate.Should().BeNull();
+        options.FileOutputTemplate.Should().BeNull();
+        options.EnableRequestLogging.Should().BeTrue();
+        options.SlowRequestThreshold.Should().Be(1000);
+        options.AdditionalEnrichers.Should().NotBeNull();
+        options.AdditionalEnrichers.Should().BeEmpty();
+        options.CustomProperties.Should().NotBeNull();
+        options.CustomProperties.Should().BeEmpty();
     }
 
     [Fact]
@@ -345,6 +361,320 @@ public class ObservabilityOptionsTests
         options.EnableRuntimeInstrumentation.Should().BeFalse();
         options.EnableHttpClientInstrumentation.Should().BeFalse();
         options.EnableAspNetCoreInstrumentation.Should().BeFalse();
+    }
+
+    // Serilog-specific property tests
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void EnableFileLogging_CanBeSet(bool value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.EnableFileLogging = value;
+
+        // Assert
+        options.EnableFileLogging.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("test.log")]
+    [InlineData("logs/app-.log")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void FileLoggingPath_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.FileLoggingPath = value;
+
+        // Assert
+        options.FileLoggingPath.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void EnableSeqLogging_CanBeSet(bool value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.EnableSeqLogging = value;
+
+        // Assert
+        options.EnableSeqLogging.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("http://localhost:5341")]
+    [InlineData("https://seq.example.com:5341")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void SeqUrl_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.SeqUrl = value;
+
+        // Assert
+        options.SeqUrl.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void EnableElasticsearchLogging_CanBeSet(bool value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.EnableElasticsearchLogging = value;
+
+        // Assert
+        options.EnableElasticsearchLogging.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("http://localhost:9200")]
+    [InlineData("https://elasticsearch.example.com:9200")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void ElasticsearchUrl_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.ElasticsearchUrl = value;
+
+        // Assert
+        options.ElasticsearchUrl.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("[{Timestamp}] {Message}")]
+    [InlineData("[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void ConsoleOutputTemplate_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.ConsoleOutputTemplate = value;
+
+        // Assert
+        options.ConsoleOutputTemplate.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("{Timestamp:yyyy-MM-dd HH:mm:ss} {Message}")]
+    [InlineData("{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj}")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void FileOutputTemplate_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.FileOutputTemplate = value;
+
+        // Assert
+        options.FileOutputTemplate.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void EnableRequestLogging_CanBeSet(bool value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.EnableRequestLogging = value;
+
+        // Assert
+        options.EnableRequestLogging.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData(500)]
+    [InlineData(1000)]
+    [InlineData(2000)]
+    [InlineData(null)]
+    public void SlowRequestThreshold_CanBeSet(int? value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.SlowRequestThreshold = value;
+
+        // Assert
+        options.SlowRequestThreshold.Should().Be(value);
+    }
+
+    [Fact]
+    public void AdditionalEnrichers_CanBeSet()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+        var enrichers = new List<string> { "TestEnricher", "AnotherEnricher" };
+
+        // Act
+        options.AdditionalEnrichers = enrichers;
+
+        // Assert
+        options.AdditionalEnrichers.Should().BeEquivalentTo(enrichers);
+    }
+
+    [Fact]
+    public void AdditionalEnrichers_CanBeModified()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.AdditionalEnrichers.Add("TestEnricher");
+        options.AdditionalEnrichers.Add("AnotherEnricher");
+
+        // Assert
+        options.AdditionalEnrichers.Should().HaveCount(2);
+        options.AdditionalEnrichers.Should().Contain("TestEnricher");
+        options.AdditionalEnrichers.Should().Contain("AnotherEnricher");
+    }
+
+    [Fact]
+    public void CustomProperties_CanBeSet()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+        var properties = new Dictionary<string, object>
+        {
+            ["Version"] = "1.0.0",
+            ["Environment"] = "Test",
+            ["Count"] = 42
+        };
+
+        // Act
+        options.CustomProperties = properties;
+
+        // Assert
+        options.CustomProperties.Should().BeEquivalentTo(properties);
+    }
+
+    [Fact]
+    public void CustomProperties_CanBeModified()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.CustomProperties.Add("Version", "1.0.0");
+        options.CustomProperties.Add("Environment", "Test");
+        options.CustomProperties.Add("Count", 42);
+
+        // Assert
+        options.CustomProperties.Should().HaveCount(3);
+        options.CustomProperties["Version"].Should().Be("1.0.0");
+        options.CustomProperties["Environment"].Should().Be("Test");
+        options.CustomProperties["Count"].Should().Be(42);
+    }
+
+    [Fact]
+    public void AdditionalEnrichers_IsNotNullAfterConstruction()
+    {
+        // Act
+        var options = new ObservabilityOptions();
+
+        // Assert
+        options.AdditionalEnrichers.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void CustomProperties_IsNotNullAfterConstruction()
+    {
+        // Act
+        var options = new ObservabilityOptions();
+
+        // Assert
+        options.CustomProperties.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void AdditionalEnrichers_CanBeSetToNull()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.AdditionalEnrichers = null!;
+
+        // Assert
+        options.AdditionalEnrichers.Should().BeNull();
+    }
+
+    [Fact]
+    public void CustomProperties_CanBeSetToNull()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.CustomProperties = null!;
+
+        // Assert
+        options.CustomProperties.Should().BeNull();
+    }
+
+    [Fact]
+    public void AllSerilogProperties_CanBeSetSimultaneously()
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+        var additionalEnrichers = new List<string> { "TestEnricher" };
+        var customProperties = new Dictionary<string, object> { ["Version"] = "1.0.0" };
+
+        // Act
+        options.EnableFileLogging = true;
+        options.FileLoggingPath = "test.log";
+        options.EnableSeqLogging = true;
+        options.SeqUrl = "http://localhost:5341";
+        options.EnableElasticsearchLogging = true;
+        options.ElasticsearchUrl = "http://localhost:9200";
+        options.ConsoleOutputTemplate = "[{Timestamp}] {Message}";
+        options.FileOutputTemplate = "{Timestamp:yyyy-MM-dd} {Message}";
+        options.EnableRequestLogging = false;
+        options.SlowRequestThreshold = 2000;
+        options.AdditionalEnrichers = additionalEnrichers;
+        options.CustomProperties = customProperties;
+
+        // Assert
+        options.EnableFileLogging.Should().BeTrue();
+        options.FileLoggingPath.Should().Be("test.log");
+        options.EnableSeqLogging.Should().BeTrue();
+        options.SeqUrl.Should().Be("http://localhost:5341");
+        options.EnableElasticsearchLogging.Should().BeTrue();
+        options.ElasticsearchUrl.Should().Be("http://localhost:9200");
+        options.ConsoleOutputTemplate.Should().Be("[{Timestamp}] {Message}");
+        options.FileOutputTemplate.Should().Be("{Timestamp:yyyy-MM-dd} {Message}");
+        options.EnableRequestLogging.Should().BeFalse();
+        options.SlowRequestThreshold.Should().Be(2000);
+        options.AdditionalEnrichers.Should().BeEquivalentTo(additionalEnrichers);
+        options.CustomProperties.Should().BeEquivalentTo(customProperties);
     }
 
     [Fact]

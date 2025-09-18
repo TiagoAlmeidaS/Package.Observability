@@ -28,6 +28,10 @@ public class ObservabilityStartupExtensionsTests
         var options = serviceProvider.GetService<IOptions<ObservabilityOptions>>();
         options.Should().NotBeNull();
         options!.Value.ServiceName.Should().Be("TestService");
+        
+        // Verificar se ISerilogService está registrado
+        var serilogService = serviceProvider.GetService<ISerilogService>();
+        serilogService.Should().NotBeNull();
     }
 
     [Fact]

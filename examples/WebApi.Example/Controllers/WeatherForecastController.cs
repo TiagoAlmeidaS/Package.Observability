@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Package.Observability;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
+using Serilog.Events;
 
 namespace WebApi.Example.Controllers;
 
@@ -15,6 +16,7 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly SerilogService _serilogService;
     
            // Métricas customizadas (criadas condicionalmente)
            private Counter<int>? _requestCounter;
@@ -23,9 +25,10 @@ public class WeatherForecastController : ControllerBase
            private readonly object _metricsLock = new object();
            private Meter? _meter;
 
-           public WeatherForecastController(ILogger<WeatherForecastController> logger)
+           public WeatherForecastController(ILogger<WeatherForecastController> logger, ISerilogService serilogService)
            {
                _logger = logger;
+               _serilogService = serilogService;
            }
 
            public void Dispose()
@@ -83,6 +86,11 @@ public class WeatherForecastController : ControllerBase
         
         _logger.LogInformation("Iniciando busca de previsão do tempo");
         
+        // Log estruturado com SerilogService
+        _serilogService.Log(LogEventLevel.Information, 
+            "Solicitação de previsão do tempo recebida de {UserAgent}", 
+            Request.Headers.UserAgent.ToString());
+        
         try
         {
             // Simular algum processamento
@@ -101,6 +109,11 @@ public class WeatherForecastController : ControllerBase
             activity?.SetTag("forecast.days", 5);
             
             _logger.LogInformation("Previsão do tempo gerada com sucesso. {Count} dias retornados", forecasts.Length);
+            
+            // Log estruturado com SerilogService
+            _serilogService.Log(LogEventLevel.Information, 
+                "Previsão do tempo gerada com sucesso: {Count} dias, processamento em {Duration}ms", 
+                forecasts.Length, stopwatch.ElapsedMilliseconds);
             
             // Incrementar contador de sucesso (se métricas estão habilitadas)
             _requestCounter?.Add(1, new KeyValuePair<string, object?>("status", "success"));
@@ -170,5 +183,21 @@ public class WeatherForecastController : ControllerBase
             
             return StatusCode(500, new { error = ex.Message, timestamp = DateTime.UtcNow });
         }
+    }
+
+    [HttpGet("serilog-status")]
+    public IActionResult GetSerilogStatus()
+    {
+        var status = _serilogService.GetConfigurationStatus();
+        
+        return Ok(new
+        {
+            IsConfigured = status.IsConfigured,
+            SinkCount = status.SinkCount,
+            IsLokiEnabled = status.IsLokiEnabled,
+            IsFileLoggingEnabled = status.IsFileLoggingEnabled,
+            MinimumLogLevel = status.MinimumLogLevel,
+            ServiceName = status.ServiceName
+        });
     }
 }
