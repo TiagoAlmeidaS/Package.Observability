@@ -20,6 +20,8 @@ public class ObservabilityOptionsTests
         options.EnableLogging.Should().BeTrue();
         options.LokiUrl.Should().Be("http://localhost:3100");
         options.OtlpEndpoint.Should().Be("http://localhost:4317");
+        options.TempoEndpoint.Should().Be("http://localhost:3200");
+        options.CollectorEndpoint.Should().Be("http://localhost:4317");
         options.EnableConsoleLogging.Should().BeTrue();
         options.MinimumLogLevel.Should().Be("Information");
         options.AdditionalLabels.Should().NotBeNull();
@@ -155,6 +157,42 @@ public class ObservabilityOptionsTests
 
         // Assert
         options.OtlpEndpoint.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("http://localhost:3200")]
+    [InlineData("https://tempo.example.com:3200")]
+    [InlineData("http://tempo.monitoring.svc.cluster.local:3200")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void TempoEndpoint_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.TempoEndpoint = value;
+
+        // Assert
+        options.TempoEndpoint.Should().Be(value);
+    }
+
+    [Theory]
+    [InlineData("http://localhost:4317")]
+    [InlineData("https://collector.example.com:4317")]
+    [InlineData("http://collector.monitoring.svc.cluster.local:4317")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void CollectorEndpoint_CanBeSet(string value)
+    {
+        // Arrange
+        var options = new ObservabilityOptions();
+
+        // Act
+        options.CollectorEndpoint = value;
+
+        // Assert
+        options.CollectorEndpoint.Should().Be(value);
     }
 
     [Theory]

@@ -28,6 +28,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-tempo-datasource
     volumes:
       - grafana-data:/var/lib/grafana
       - ./observability/grafana/provisioning:/etc/grafana/provisioning
@@ -37,6 +38,8 @@ services:
     depends_on:
       - prometheus
       - loki
+      - tempo
+      - otel-collector
 
   loki:
     image: grafana/loki:latest
@@ -50,18 +53,38 @@ services:
     networks:
       - observability
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    container_name: jaeger
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
     ports:
-      - "16686:16686"  # Jaeger UI
+      - "3200:3200"    # Tempo HTTP
       - "4317:4317"    # OTLP gRPC receiver
       - "4318:4318"    # OTLP HTTP receiver
-    environment:
-      - COLLECTOR_OTLP_ENABLED=true
-      - LOG_LEVEL=debug
+    volumes:
+      - ./observability/tempo.yml:/etc/tempo.yml
+      - tempo-data:/tmp/tempo
+    command: -config.file=/etc/tempo.yml
     networks:
       - observability
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    ports:
+      - "8888:8888"    # Prometheus metrics
+      - "8889:8889"    # Prometheus exporter
+      - "13133:13133"  # Health check
+      - "1777:1777"    # pprof
+      - "55679:55679"  # zpages
+    volumes:
+      - ./observability/otel-collector.yml:/etc/otel-collector.yml
+    command: ["--config=/etc/otel-collector.yml"]
+    networks:
+      - observability
+    depends_on:
+      - tempo
+      - loki
+      - prometheus
 
   # Opcional: Node Exporter para métricas do sistema
   node-exporter:
@@ -85,6 +108,7 @@ volumes:
   prometheus-data:
   grafana-data:
   loki-data:
+  tempo-data:
 
 networks:
   observability:

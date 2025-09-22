@@ -16,7 +16,7 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly SerilogService _serilogService;
+    private readonly ISerilogService _serilogService;
     
            // Métricas customizadas (criadas condicionalmente)
            private Counter<int>? _requestCounter;

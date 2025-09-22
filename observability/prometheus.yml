@@ -17,6 +17,20 @@ scrape_configs:
     static_configs:
       - targets: ['node-exporter:9100']
 
+  # OpenTelemetry Collector metrics
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8888']
+    scrape_interval: 5s
+    metrics_path: /metrics
+
+  # Tempo metrics
+  - job_name: 'tempo'
+    static_configs:
+      - targets: ['tempo:3200']
+    scrape_interval: 5s
+    metrics_path: /metrics
+
   # .NET Applications using Package.Observability
   - job_name: 'webapi-example'
     static_configs:

@@ -41,6 +41,16 @@ public class ObservabilityOptions
     public string OtlpEndpoint { get; set; } = "http://localhost:4317";
 
     /// <summary>
+    /// Tempo endpoint URL for trace storage and querying
+    /// </summary>
+    public string TempoEndpoint { get; set; } = "http://localhost:3200";
+
+    /// <summary>
+    /// OpenTelemetry Collector endpoint for traces, metrics, and logs
+    /// </summary>
+    public string CollectorEndpoint { get; set; } = "http://localhost:4317";
+
+    /// <summary>
     /// Enable console logging output
     /// </summary>
     public bool EnableConsoleLogging { get; set; } = true;

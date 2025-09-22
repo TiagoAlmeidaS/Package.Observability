@@ -1,4 +1,5 @@
 using Package.Observability;
+using WebApi.Example.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,12 @@ builder.Services.AddSwaggerGen();
 // Adiciona observabilidade completa
 builder.Services.AddObservability(builder.Configuration);
 
+// Registrar serviços de exemplo
+builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+// Registrar serviços com instrumentação automática (ZERO CONFIGURAÇÃO)
+builder.Services.AddScoped<IAutoWeatherService, AutoWeatherService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +27,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Adicionar middleware de telemetria automática (ZERO CONFIGURAÇÃO)
+// Similar ao Tempo, Loki e Prometheus - funciona automaticamente
+app.UseAutoObservabilityTelemetry();
+
 app.UseAuthorization();
 app.MapControllers();
 

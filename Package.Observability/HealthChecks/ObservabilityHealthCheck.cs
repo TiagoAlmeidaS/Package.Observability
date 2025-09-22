@@ -28,7 +28,9 @@ public class ObservabilityHealthCheck : IHealthCheck
                 ["EnableMetrics"] = _options.EnableMetrics,
                 ["EnableTracing"] = _options.EnableTracing,
                 ["EnableLogging"] = _options.EnableLogging,
-                ["PrometheusPort"] = _options.PrometheusPort
+                ["PrometheusPort"] = _options.PrometheusPort,
+                ["TempoEndpoint"] = _options.TempoEndpoint ?? "Não configurado",
+                ["CollectorEndpoint"] = _options.CollectorEndpoint ?? "Não configurado"
             };
 
             var issues = new List<string>();
@@ -69,6 +71,16 @@ public class ObservabilityHealthCheck : IHealthCheck
                 if (!string.IsNullOrEmpty(_options.OtlpEndpoint) && !IsValidUrl(_options.OtlpEndpoint))
                 {
                     issues.Add($"Endpoint OTLP inválido: {_options.OtlpEndpoint}");
+                }
+
+                if (!string.IsNullOrEmpty(_options.TempoEndpoint) && !IsValidUrl(_options.TempoEndpoint))
+                {
+                    issues.Add($"TempoEndpoint inválido: {_options.TempoEndpoint}");
+                }
+
+                if (!string.IsNullOrEmpty(_options.CollectorEndpoint) && !IsValidUrl(_options.CollectorEndpoint))
+                {
+                    issues.Add($"CollectorEndpoint inválido: {_options.CollectorEndpoint}");
                 }
             }
 
@@ -172,19 +184,35 @@ public class TracingHealthCheck : IHealthCheck
             var data = new Dictionary<string, object>
             {
                 ["OtlpEndpoint"] = _options.OtlpEndpoint ?? "Não configurado",
+                ["TempoEndpoint"] = _options.TempoEndpoint ?? "Não configurado",
+                ["CollectorEndpoint"] = _options.CollectorEndpoint ?? "Não configurado",
                 ["EnableHttpClientInstrumentation"] = _options.EnableHttpClientInstrumentation,
                 ["EnableAspNetCoreInstrumentation"] = _options.EnableAspNetCoreInstrumentation
             };
 
             var issues = new List<string>();
 
-            if (string.IsNullOrEmpty(_options.OtlpEndpoint))
+            if (string.IsNullOrEmpty(_options.OtlpEndpoint) && 
+                string.IsNullOrEmpty(_options.CollectorEndpoint))
             {
-                issues.Add("Endpoint OTLP não configurado");
+                issues.Add("Nenhum endpoint de tracing configurado (OtlpEndpoint ou CollectorEndpoint)");
             }
-            else if (!IsValidUrl(_options.OtlpEndpoint))
+            else
             {
-                issues.Add($"Endpoint OTLP inválido: {_options.OtlpEndpoint}");
+                if (!string.IsNullOrEmpty(_options.OtlpEndpoint) && !IsValidUrl(_options.OtlpEndpoint))
+                {
+                    issues.Add($"Endpoint OTLP inválido: {_options.OtlpEndpoint}");
+                }
+
+                if (!string.IsNullOrEmpty(_options.TempoEndpoint) && !IsValidUrl(_options.TempoEndpoint))
+                {
+                    issues.Add($"TempoEndpoint inválido: {_options.TempoEndpoint}");
+                }
+
+                if (!string.IsNullOrEmpty(_options.CollectorEndpoint) && !IsValidUrl(_options.CollectorEndpoint))
+                {
+                    issues.Add($"CollectorEndpoint inválido: {_options.CollectorEndpoint}");
+                }
             }
 
             if (issues.Count > 0)

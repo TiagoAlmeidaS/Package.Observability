@@ -57,6 +57,18 @@ public static class ConfigurationValidator
             errors.Add($"OtlpEndpoint inválido: {options.OtlpEndpoint}");
         }
 
+        // Validação do endpoint do Tempo
+        if (!string.IsNullOrEmpty(options.TempoEndpoint) && !IsValidUrl(options.TempoEndpoint))
+        {
+            errors.Add($"TempoEndpoint inválido: {options.TempoEndpoint}");
+        }
+
+        // Validação do endpoint do Collector
+        if (!string.IsNullOrEmpty(options.CollectorEndpoint) && !IsValidUrl(options.CollectorEndpoint))
+        {
+            errors.Add($"CollectorEndpoint inválido: {options.CollectorEndpoint}");
+        }
+
         // Validação do nível de log
         if (!string.IsNullOrEmpty(options.MinimumLogLevel))
         {

@@ -19,6 +19,8 @@ public class ConfigurationValidatorTests
             EnableLogging = true,
             LokiUrl = "http://localhost:3100",
             OtlpEndpoint = "http://localhost:4317",
+            TempoEndpoint = "http://localhost:3200",
+            CollectorEndpoint = "http://localhost:4317",
             MinimumLogLevel = "Information"
         };
 
@@ -100,6 +102,42 @@ public class ConfigurationValidatorTests
         // Assert
         result.IsValid.Should().BeFalse();
         result.Errors.Should().Contain("OtlpEndpoint inválido: not-a-url");
+    }
+
+    [Fact]
+    public void Validate_WithInvalidTempoEndpoint_ShouldReturnInvalidResult()
+    {
+        // Arrange
+        var options = new ObservabilityOptions
+        {
+            ServiceName = "TestService",
+            TempoEndpoint = "not-a-url"
+        };
+
+        // Act
+        var result = ConfigurationValidator.Validate(options);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain("TempoEndpoint inválido: not-a-url");
+    }
+
+    [Fact]
+    public void Validate_WithInvalidCollectorEndpoint_ShouldReturnInvalidResult()
+    {
+        // Arrange
+        var options = new ObservabilityOptions
+        {
+            ServiceName = "TestService",
+            CollectorEndpoint = "not-a-url"
+        };
+
+        // Act
+        var result = ConfigurationValidator.Validate(options);
+
+        // Assert
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain("CollectorEndpoint inválido: not-a-url");
     }
 
     [Fact]

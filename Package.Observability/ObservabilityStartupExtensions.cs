@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using Serilog.Sinks.File;
 using Serilog.Sinks.Seq;
 using Package.Observability.Exceptions;
 using Package.Observability.HealthChecks;
+using Package.Observability.Telemetry;
 
 namespace Package.Observability;
 
@@ -137,6 +139,8 @@ public static class ObservabilityStartupExtensions
             opt.EnableLogging = options.EnableLogging;
             opt.LokiUrl = options.LokiUrl;
             opt.OtlpEndpoint = options.OtlpEndpoint;
+            opt.TempoEndpoint = options.TempoEndpoint;
+            opt.CollectorEndpoint = options.CollectorEndpoint;
             opt.EnableConsoleLogging = options.EnableConsoleLogging;
             opt.MinimumLogLevel = options.MinimumLogLevel;
             opt.AdditionalLabels = options.AdditionalLabels;
@@ -173,7 +177,6 @@ public static class ObservabilityStartupExtensions
     {
         if (!options.EnableMetrics) return;
 
-        // Ensure custom meters are included
         metrics.AddMeter(options.ServiceName);
 
         if (options.EnableRuntimeInstrumentation)
@@ -185,7 +188,6 @@ public static class ObservabilityStartupExtensions
         if (options.EnableHttpClientInstrumentation)
             metrics.AddHttpClientInstrumentation();
 
-        // Add Prometheus exporter (ASP.NET Core scraping endpoint)
         metrics.AddPrometheusExporter();
     }
 
@@ -193,7 +195,6 @@ public static class ObservabilityStartupExtensions
     {
         if (!options.EnableTracing) return;
 
-        // Ensure custom ActivitySource is included
         tracing.AddSource(options.ServiceName);
 
         if (options.EnableAspNetCoreInstrumentation)
@@ -202,11 +203,17 @@ public static class ObservabilityStartupExtensions
         if (options.EnableHttpClientInstrumentation)
             tracing.AddHttpClientInstrumentation();
 
-        // Add OTLP exporter
-        tracing.AddOtlpExporter(otlpOptions =>
+        var endpoint = !string.IsNullOrEmpty(options.CollectorEndpoint) 
+            ? options.CollectorEndpoint 
+            : options.OtlpEndpoint;
+            
+        if (!string.IsNullOrEmpty(endpoint))
         {
-            otlpOptions.Endpoint = new Uri(options.OtlpEndpoint);
-        });
+            tracing.AddOtlpExporter(otlpOptions =>
+            {
+                otlpOptions.Endpoint = new Uri(endpoint);
+            });
+        }
     }
 
     private static void ConfigureSerilog(ObservabilityOptions options)
@@ -312,5 +319,36 @@ public static class ObservabilityStartupExtensions
                 .AddCheck<LoggingHealthCheck>("logging", tags: new[] { "observability", "logging" })
                 .AddCheck<SerilogHealthCheck>("serilog", tags: new[] { "observability", "logging", "serilog" });
         }
+
+        // Register telemetry services
+        // services.AddSingleton<ITelemetryService, TelemetryService>();
+        // services.AddSingleton<TelemetryInterceptor>();
+        
+        // Register auto-instrumentation services (zero configuration)
+        // services.AddSingleton<AutoMethodInterceptor>();
+        // services.AddHostedService<AutoDiscovery>();
+    }
+
+    /// <summary>
+    /// Adiciona o middleware de telemetria automática
+    /// Similar ao Application Insights, mas usando OpenTelemetry
+    /// </summary>
+    /// <param name="app">Application builder</param>
+    /// <returns>Application builder</returns>
+    public static IApplicationBuilder UseObservabilityTelemetry(this IApplicationBuilder app)
+    {
+        // return app.UseMiddleware<TelemetryMiddleware>();
+        return app;
+    }
+
+    /// <summary>
+    /// Adiciona o middleware de telemetria automática (zero configuração)
+    /// Similar ao Tempo, Loki e Prometheus - funciona automaticamente
+    /// </summary>
+    /// <param name="app">Application builder</param>
+    /// <returns>Application builder</returns>
+    public static IApplicationBuilder UseAutoObservabilityTelemetry(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<ZeroConfigTelemetryMiddleware>();
     }
 }

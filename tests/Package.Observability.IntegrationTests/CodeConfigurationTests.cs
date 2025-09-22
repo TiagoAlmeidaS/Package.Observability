@@ -82,6 +82,8 @@ public class CodeConfigurationTests
                         options.EnableConsoleLogging = false; // Sem console em produção
                         options.LokiUrl = "http://loki:3100";
                         options.OtlpEndpoint = "http://jaeger:4317";
+                        options.TempoEndpoint = "http://tempo:3200";
+                        options.CollectorEndpoint = "http://collector:4317";
                         options.MinimumLogLevel = "Information";
                         options.PrometheusPort = GetFreeTcpPort();
                         options.AdditionalLabels.Add("environment", "production");
@@ -229,6 +231,8 @@ public class CodeConfigurationTests
                         options.EnableConsoleLogging = false;
                         options.LokiUrl = "";
                         options.OtlpEndpoint = "http://jaeger:4317";
+                        options.TempoEndpoint = "http://tempo:3200";
+                        options.CollectorEndpoint = "http://collector:4317";
                     });
                 });
             });
@@ -376,6 +380,8 @@ public class CodeConfigurationTests
                         options.EnableConsoleLogging = true;
                         options.LokiUrl = "";
                         options.OtlpEndpoint = "http://jaeger:4317";
+                        options.TempoEndpoint = "http://tempo:3200";
+                        options.CollectorEndpoint = "http://collector:4317";
                         options.PrometheusPort = GetFreeTcpPort();
                         
                         // Configurações de instrumentação

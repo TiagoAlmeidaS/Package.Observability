@@ -30,7 +30,9 @@ public class HealthChecksTests
                         ["Observability:EnableMetrics"] = "true", 
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:EnableLogging"] = "true",
-                        ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString()
+                        ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
+                        ["Observability:TempoEndpoint"] = "http://localhost:3200",
+                        ["Observability:CollectorEndpoint"] = "http://localhost:4317"
                     };
                     configBuilder.AddInMemoryCollection(config);
                 });
@@ -68,7 +70,9 @@ public class HealthChecksTests
                         ["Observability:EnableLogging"] = "true",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
                         ["Observability:LokiUrl"] = "http://loki:3100",
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317"
+                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317",
+                        ["Observability:TempoEndpoint"] = "http://tempo:3200",
+                        ["Observability:CollectorEndpoint"] = "http://collector:4317"
                     };
                     configBuilder.AddInMemoryCollection(config);
                 });
@@ -202,7 +206,9 @@ public class HealthChecksTests
                         ["Observability:EnableMetrics"] = "false",
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:EnableLogging"] = "false",
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317"
+                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317",
+                        ["Observability:TempoEndpoint"] = "http://tempo:3200",
+                        ["Observability:CollectorEndpoint"] = "http://collector:4317"
                     };
                     configBuilder.AddInMemoryCollection(config);
                 });

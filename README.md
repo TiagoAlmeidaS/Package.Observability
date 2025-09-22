@@ -9,7 +9,7 @@ Um pacote completo de observabilidade para aplicações .NET 8, fornecendo métr
 
 - **Métricas**: Coleta automática de métricas de runtime, ASP.NET Core e HTTP Client com exportação para Prometheus
 - **Logs Estruturados**: Configuração automática do Serilog com suporte a Console e Grafana Loki
-- **Rastreamento Distribuído**: Instrumentação OpenTelemetry com exportação OTLP
+- **Rastreamento Distribuído**: Instrumentação OpenTelemetry com exportação OTLP para Tempo via Collector
 - **Configuração Flexível**: Configuração via `appsettings.json` ou código
 - **Correlation ID**: Suporte automático para correlação de logs e traces
 - **Fácil Integração**: Uma linha de código para configurar toda a observabilidade
@@ -75,6 +75,8 @@ app.Run();
 | `EnableLogging` | `bool` | `true` | Habilita logs estruturados |
 | `LokiUrl` | `string` | `"http://localhost:3100"` | URL do Grafana Loki |
 | `OtlpEndpoint` | `string` | `"http://localhost:4317"` | Endpoint OTLP para traces |
+| `CollectorEndpoint` | `string` | `"http://localhost:4317"` | Endpoint do OpenTelemetry Collector |
+| `TempoEndpoint` | `string` | `"http://localhost:3200"` | Endpoint do Tempo para traces |
 | `EnableConsoleLogging` | `bool` | `true` | Habilita logs no console |
 | `MinimumLogLevel` | `string` | `"Information"` | Nível mínimo de log |
 | `EnableCorrelationId` | `bool` | `true` | Habilita Correlation ID automático |
@@ -132,7 +134,7 @@ builder.Services.AddObservability(options =>
     options.EnableMetrics = false;      // Sem métricas
     options.EnableTracing = true;       // Apenas tracing
     options.EnableLogging = false;      // Sem logs
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -145,7 +147,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -162,7 +164,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
     options.AdditionalLabels.Add("bot-type", "fishing");
     options.LokiLabels.Add("component", "worker");
 });
@@ -280,16 +282,36 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
+  tempo:
+    image: grafana/tempo:latest
     ports:
-      - "16686:16686"
-      - "4317:4317"
-    environment:
-      - COLLECTOR_OTLP_ENABLED=true
+      - "3200:3200"    # Tempo HTTP
+      - "4317:4317"    # OTLP gRPC receiver
+      - "4318:4318"    # OTLP HTTP receiver
+    volumes:
+      - ./observability/tempo.yml:/etc/tempo.yml
+      - tempo-data:/tmp/tempo
+    command: -config.file=/etc/tempo.yml
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    ports:
+      - "8888:8888"    # Prometheus metrics
+      - "8889:8889"    # Prometheus exporter
+      - "13133:13133"  # Health check
+      - "1777:1777"    # pprof
+      - "55679:55679"  # zpages
+    volumes:
+      - ./observability/otel-collector.yml:/etc/otel-collector.yml
+    command: ["--config=/etc/otel-collector.yml"]
+    depends_on:
+      - tempo
+      - loki
+      - prometheus
 
 volumes:
   grafana-storage:
+  tempo-data:
 ```
 
 ### Configuração do Prometheus (`prometheus.yml`)
@@ -330,7 +352,8 @@ Após configurar o pacote, os seguintes endpoints estarão disponíveis:
 ### Traces Distribuídos
 
 - **OpenTelemetry**: Padrão da indústria
-- **OTLP Export**: Compatível com Jaeger, Zipkin, etc.
+- **Tempo**: Armazenamento e consulta de traces
+- **OTLP Export**: Via OpenTelemetry Collector
 - **Instrumentação automática**: ASP.NET Core, HTTP Client
 - **Traces customizados**: Via ActivitySource
 
