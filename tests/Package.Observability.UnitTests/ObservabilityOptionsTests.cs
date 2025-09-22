@@ -143,8 +143,8 @@ public class ObservabilityOptionsTests
 
     [Theory]
     [InlineData("http://localhost:4317")]
-    [InlineData("https://jaeger.example.com:4317")]
-    [InlineData("http://jaeger.monitoring.svc.cluster.local:4317")]
+    [InlineData("https://otel-collector.example.com:4317")]
+    [InlineData("http://otel-collector.monitoring.svc.cluster.local:4317")]
     [InlineData("")]
     [InlineData(null)]
     public void OtlpEndpoint_CanBeSet(string value)
@@ -373,7 +373,7 @@ public class ObservabilityOptionsTests
         options.EnableTracing = false;
         options.EnableLogging = false;
         options.LokiUrl = "http://test-loki:3100";
-        options.OtlpEndpoint = "http://test-jaeger:4317";
+        options.OtlpEndpoint = "http://test-otel-collector:4317";
         options.EnableConsoleLogging = false;
         options.MinimumLogLevel = "Debug";
         options.AdditionalLabels = additionalLabels;
@@ -390,7 +390,7 @@ public class ObservabilityOptionsTests
         options.EnableTracing.Should().BeFalse();
         options.EnableLogging.Should().BeFalse();
         options.LokiUrl.Should().Be("http://test-loki:3100");
-        options.OtlpEndpoint.Should().Be("http://test-jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://test-otel-collector:4317");
         options.EnableConsoleLogging.Should().BeFalse();
         options.MinimumLogLevel.Should().Be("Debug");
         options.AdditionalLabels.Should().BeEquivalentTo(additionalLabels);

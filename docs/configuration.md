@@ -98,7 +98,7 @@ Este documento detalha todas as opções de configuração disponíveis no Packa
     "EnableConsoleLogging": false,
     "MinimumLogLevel": "Information",
     "LokiUrl": "http://loki.monitoring.svc.cluster.local:3100",
-    "OtlpEndpoint": "http://jaeger.monitoring.svc.cluster.local:4317",
+    "CollectorEndpoint": "http://otel-collector.monitoring.svc.cluster.local:4317",
     "AdditionalLabels": {
       "environment": "production",
       "version": "1.0.0"
@@ -249,7 +249,7 @@ options.EnableCorrelationId = false;
 ### Endpoint OTLP
 
 ```csharp
-// Jaeger
+// Tempo
 options.OtlpEndpoint = "http://localhost:4317";
 
 // Zipkin
@@ -299,7 +299,7 @@ if (builder.Environment.IsProduction())
         options.EnableConsoleLogging = false;
         options.MinimumLogLevel = "Information";
         options.LokiUrl = "http://loki.monitoring.svc.cluster.local:3100";
-        options.OtlpEndpoint = "http://jaeger.monitoring.svc.cluster.local:4317";
+        options.CollectorEndpoint = "http://otel-collector.monitoring.svc.cluster.local:4317";
         options.AdditionalLabels.Add("environment", "production");
     });
 }

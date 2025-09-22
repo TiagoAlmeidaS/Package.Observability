@@ -81,7 +81,7 @@ public class CodeConfigurationTests
                         options.EnableLogging = true;
                         options.EnableConsoleLogging = false; // Sem console em produção
                         options.LokiUrl = "http://loki:3100";
-                        options.OtlpEndpoint = "http://jaeger:4317";
+                        options.OtlpEndpoint = "http://otel-collector:4317";
                         options.TempoEndpoint = "http://tempo:3200";
                         options.CollectorEndpoint = "http://collector:4317";
                         options.MinimumLogLevel = "Information";
@@ -230,7 +230,7 @@ public class CodeConfigurationTests
                         options.EnableLogging = false;
                         options.EnableConsoleLogging = false;
                         options.LokiUrl = "";
-                        options.OtlpEndpoint = "http://jaeger:4317";
+                        options.OtlpEndpoint = "http://otel-collector:4317";
                         options.TempoEndpoint = "http://tempo:3200";
                         options.CollectorEndpoint = "http://collector:4317";
                     });
@@ -379,7 +379,7 @@ public class CodeConfigurationTests
                         options.EnableLogging = true;
                         options.EnableConsoleLogging = true;
                         options.LokiUrl = "";
-                        options.OtlpEndpoint = "http://jaeger:4317";
+                        options.OtlpEndpoint = "http://otel-collector:4317";
                         options.TempoEndpoint = "http://tempo:3200";
                         options.CollectorEndpoint = "http://collector:4317";
                         options.PrometheusPort = GetFreeTcpPort();

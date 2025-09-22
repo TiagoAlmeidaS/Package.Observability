@@ -210,7 +210,7 @@ public class TempoCollectorHealthCheckTests
         {
             ServiceName = "TestService",
             EnableTracing = true,
-            OtlpEndpoint = "http://jaeger:4317",
+            OtlpEndpoint = "http://otel-collector:4317",
             CollectorEndpoint = ""
         };
         _optionsMock.Setup(x => x.Value).Returns(options);
@@ -222,7 +222,7 @@ public class TempoCollectorHealthCheckTests
 
         // Assert
         result.Status.Should().Be(HealthStatus.Healthy);
-        result.Data["OtlpEndpoint"].Should().Be("http://jaeger:4317");
+        result.Data["OtlpEndpoint"].Should().Be("http://otel-collector:4317");
         result.Data["CollectorEndpoint"].Should().Be("Não configurado");
     }
 

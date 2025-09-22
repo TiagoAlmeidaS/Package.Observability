@@ -65,7 +65,7 @@ builder.Services.AddObservability(options =>
     options.EnableMetrics = false;
     options.EnableTracing = true;
     options.EnableLogging = false;
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -100,7 +100,7 @@ builder.Services.AddObservability(options =>
     options.EnableLogging = true;
     options.EnableConsoleLogging = false;   // Sem console em produção
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
     options.MinimumLogLevel = "Information";
 });
 ```
@@ -135,7 +135,7 @@ builder.Services.AddObservability(options =>
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki:3100",
-    "OtlpEndpoint": "http://jaeger:4317",
+    "CollectorEndpoint": "http://otel-collector:4317",
     "MinimumLogLevel": "Information"
   }
 }
@@ -153,7 +153,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
     options.AdditionalLabels.Add("environment", "production");
     options.LokiLabels.Add("app", "meu-servico");
 });
@@ -408,7 +408,7 @@ services:
       - Observability__EnableTracing=true
       - Observability__EnableLogging=true
       - Observability__LokiUrl=http://loki:3100
-      - Observability__OtlpEndpoint=http://jaeger:4317
+      - Observability__CollectorEndpoint=http://otel-collector:4317
 ```
 
 ### P: Como configurar para desenvolvimento com Docker?
@@ -450,12 +450,12 @@ services:
 3. Loki rodando e acessível
 4. Configuração de rede
 
-### P: Traces não aparecem no Jaeger?
+### P: Traces não aparecem no Tempo?
 
 **R:** Verifique:
 1. `EnableTracing = true`
 2. `OtlpEndpoint` correto
-3. Jaeger rodando e acessível
+3. Tempo rodando e acessível
 4. Configuração de rede
 
 ### P: Como debug de configuração?

@@ -125,16 +125,16 @@ builder.Services.AddObservability(options =>
 });
 ```
 
-### 4. Traces não aparecem no Jaeger
+### 4. Traces não aparecem no Tempo
 
 #### Sintomas
-- Traces não aparecem no Jaeger
-- Jaeger não recebe traces
+- Traces não aparecem no Tempo
+- Tempo não recebe traces
 - Erro de conexão com OTLP
 
 #### Possíveis Causas
 - `OtlpEndpoint` incorreto
-- Jaeger não está rodando
+- Tempo não está rodando
 - `EnableTracing` está `false`
 - Problema de rede
 
@@ -149,10 +149,10 @@ builder.Services.AddObservability(options =>
 });
 ```
 
-**Verificar se Jaeger está rodando:**
+**Verificar se Tempo está rodando:**
 ```bash
-# Verificar se Jaeger está acessível
-curl http://localhost:16686/api/services
+# Verificar se Tempo está acessível
+curl http://localhost:3200/api/overrides
 ```
 
 **Verificar traces:**
@@ -347,11 +347,11 @@ curl http://localhost:9090/api/v1/query?query=up
 curl http://localhost:3100/loki/api/v1/query?query={job="MinhaAplicacao"}
 ```
 
-### 3. Jaeger
+### 3. Tempo
 
 ```bash
-# Verificar traces no Jaeger
-curl http://localhost:16686/api/services
+# Verificar traces no Tempo
+curl http://localhost:3200/api/overrides
 ```
 
 ### 4. .NET Diagnostics

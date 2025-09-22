@@ -146,7 +146,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
     options.AdditionalLabels.Add("environment", "production");
     options.LokiLabels.Add("team", "backend");
 });
@@ -178,7 +178,7 @@ Isso iniciará:
 - **Prometheus**: http://localhost:9091
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **Loki**: http://localhost:3100
-- **Jaeger**: http://localhost:16686
+- **Tempo**: http://localhost:3200
 
 ## 📈 Próximos Passos
 

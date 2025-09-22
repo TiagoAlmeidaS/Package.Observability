@@ -70,7 +70,7 @@ public class TempoCollectorIntegrationTests
                         ["Observability:ServiceName"] = "TestService-Collector-Priority",
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
-                        ["Observability:OtlpEndpoint"] = "http://old-jaeger:4317",
+                        ["Observability:OtlpEndpoint"] = "http://old-otel-collector:4317",
                         ["Observability:CollectorEndpoint"] = "http://new-collector:4317",
                         ["Observability:TempoEndpoint"] = "http://tempo:3200"
                     };
@@ -90,7 +90,7 @@ public class TempoCollectorIntegrationTests
         var options = serviceProvider.GetRequiredService<IOptions<ObservabilityOptions>>().Value;
         
         options.CollectorEndpoint.Should().Be("http://new-collector:4317");
-        options.OtlpEndpoint.Should().Be("http://old-jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://old-otel-collector:4317");
         options.TempoEndpoint.Should().Be("http://tempo:3200");
     }
 
@@ -287,7 +287,7 @@ public class TempoCollectorIntegrationTests
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
                         ["Observability:CollectorEndpoint"] = "", // Vazio
-                        ["Observability:OtlpEndpoint"] = "http://fallback-jaeger:4317",
+                        ["Observability:OtlpEndpoint"] = "http://fallback-otel-collector:4317",
                         ["Observability:TempoEndpoint"] = "http://tempo:3200"
                     };
                     configBuilder.AddInMemoryCollection(config);
@@ -306,7 +306,7 @@ public class TempoCollectorIntegrationTests
         var options = serviceProvider.GetRequiredService<IOptions<ObservabilityOptions>>().Value;
         
         options.CollectorEndpoint.Should().Be("");
-        options.OtlpEndpoint.Should().Be("http://fallback-jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://fallback-otel-collector:4317");
         options.TempoEndpoint.Should().Be("http://tempo:3200");
     }
 

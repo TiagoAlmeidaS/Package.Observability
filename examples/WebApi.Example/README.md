@@ -73,7 +73,7 @@ Isso iniciará:
 - **Prometheus**: http://localhost:9091
 - **Grafana**: http://localhost:3000 (admin/admin)
 - **Loki**: http://localhost:3100
-- **Jaeger**: http://localhost:16686
+- **Tempo**: http://localhost:3200
 
 ## 📈 Visualizando os Dados
 
@@ -92,8 +92,8 @@ Acesse http://localhost:9091 e consulte:
    - Loki: http://loki:3100
 4. Importe dashboards ou crie os seus próprios
 
-### Jaeger
-Acesse http://localhost:16686 para visualizar traces distribuídos:
+### Tempo
+Acesse http://localhost:3200 para visualizar traces distribuídos:
 - Selecione o serviço "WebApi.Example"
 - Visualize traces de requisições
 - Analise spans e tags customizados

@@ -6,7 +6,7 @@ Este documento contém exemplos práticos de configuração do `Package.Observab
 
 ### 1. Desenvolvimento Local (Sem Infraestrutura Externa)
 
-**Objetivo**: Desenvolvimento local sem necessidade de Prometheus, Loki ou Jaeger.
+**Objetivo**: Desenvolvimento local sem necessidade de Prometheus, Loki ou Tempo.
 
 ```json
 // appsettings.Development.json
@@ -126,7 +126,7 @@ app.Run();
     "EnableLogging": false,         // Sem logs
     "EnableConsoleLogging": false,  // Sem console
     "LokiUrl": "",                 // Sem Loki
-    "OtlpEndpoint": "http://jaeger:4317",  // Apenas OTLP
+    "CollectorEndpoint": "http://otel-collector:4317",  // Apenas OTLP
     "EnableHttpClientInstrumentation": true,
     "EnableAspNetCoreInstrumentation": true
   }
@@ -136,7 +136,7 @@ app.Run();
 **Resultado**:
 - ❌ Sem métricas
 - ❌ Sem logs
-- ✅ Traces enviados para Jaeger
+- ✅ Traces enviados para Tempo
 - ✅ Instrumentação automática de HTTP e ASP.NET Core
 
 ### 5. Produção Completa (Métricas + Logs + Tracing)
@@ -154,7 +154,7 @@ app.Run();
     "EnableLogging": true,
     "EnableConsoleLogging": false,  // Sem console em produção
     "LokiUrl": "http://loki.monitoring.svc.cluster.local:3100",
-    "OtlpEndpoint": "http://jaeger.monitoring.svc.cluster.local:4317",
+    "CollectorEndpoint": "http://otel-collector.monitoring.svc.cluster.local:4317",
     "MinimumLogLevel": "Information",
     "EnableCorrelationId": true,
     "EnableRuntimeInstrumentation": true,
@@ -178,7 +178,7 @@ app.Run();
 **Resultado**:
 - ✅ Métricas completas em `http://localhost:9090/metrics`
 - ✅ Logs estruturados enviados para Loki
-- ✅ Traces enviados para Jaeger
+- ✅ Traces enviados para Tempo
 - ✅ Instrumentação automática completa
 - ✅ Correlation ID automático
 
@@ -218,7 +218,7 @@ app.Run();
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki-staging:3100",
-    "OtlpEndpoint": "http://jaeger-staging:4317",
+    "CollectorEndpoint": "http://otel-collector-staging:4317",
     "MinimumLogLevel": "Information",
     "AdditionalLabels": {
       "environment": "staging",
@@ -240,7 +240,7 @@ app.Run();
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki.monitoring.svc.cluster.local:3100",
-    "OtlpEndpoint": "http://jaeger.monitoring.svc.cluster.local:4317",
+    "CollectorEndpoint": "http://otel-collector.monitoring.svc.cluster.local:4317",
     "MinimumLogLevel": "Warning",
     "AdditionalLabels": {
       "environment": "production",
@@ -326,11 +326,11 @@ services:
       - Observability__EnableLogging=true
       - Observability__EnableConsoleLogging=false
       - Observability__LokiUrl=http://loki:3100
-      - Observability__OtlpEndpoint=http://jaeger:4317
+      - Observability__CollectorEndpoint=http://otel-collector:4317
       - Observability__MinimumLogLevel=Information
     depends_on:
       - loki
-      - jaeger
+      - tempo
       - prometheus
 
   loki:
@@ -339,8 +339,8 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
+  tempo:
+    image: grafana/tempo:latest
     ports:
       - "16686:16686"
       - "4317:4317"

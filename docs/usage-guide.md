@@ -54,7 +54,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki.monitoring.svc.cluster.local:3100";
-    options.OtlpEndpoint = "http://jaeger.monitoring.svc.cluster.local:4317";
+    options.CollectorEndpoint = "http://otel-collector.monitoring.svc.cluster.local:4317";
     options.EnableConsoleLogging = false; // Apenas em desenvolvimento
     options.MinimumLogLevel = "Information";
     options.EnableCorrelationId = true;
@@ -133,7 +133,7 @@ builder.Services.AddObservability(options =>
     options.EnableMetrics = false;
     options.EnableTracing = true;
     options.EnableLogging = false;
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -164,7 +164,7 @@ builder.Services.AddObservability(options =>
     
     // Endpoints externos
     "LokiUrl": "http://loki:3100",
-    "OtlpEndpoint": "http://jaeger:4317",
+    "CollectorEndpoint": "http://otel-collector:4317",
     
     // Labels customizados
     "AdditionalLabels": {
@@ -231,7 +231,7 @@ builder.Services.AddObservability(options =>
         options.EnableLogging = true;
         options.EnableConsoleLogging = false;
         options.LokiUrl = "http://loki-staging:3100";
-        options.OtlpEndpoint = "http://jaeger-staging:4317";
+        options.CollectorEndpoint = "http://otel-collector-staging:4317";
         options.MinimumLogLevel = "Information";
     }
     else // Production
@@ -242,7 +242,7 @@ builder.Services.AddObservability(options =>
         options.EnableLogging = true;
         options.EnableConsoleLogging = false;
         options.LokiUrl = "http://loki.monitoring.svc.cluster.local:3100";
-        options.OtlpEndpoint = "http://jaeger.monitoring.svc.cluster.local:4317";
+        options.CollectorEndpoint = "http://otel-collector.monitoring.svc.cluster.local:4317";
         options.MinimumLogLevel = "Warning";
     }
     
@@ -659,11 +659,11 @@ services:
       - Observability__EnableLogging=true
       - Observability__EnableConsoleLogging=false
       - Observability__LokiUrl=http://loki:3100
-      - Observability__OtlpEndpoint=http://jaeger:4317
+      - Observability__CollectorEndpoint=http://otel-collector:4317
       - Observability__MinimumLogLevel=Information
     depends_on:
       - loki
-      - jaeger
+      - tempo
 
   loki:
     image: grafana/loki:latest
@@ -671,8 +671,8 @@ services:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
+  tempo:
+    image: grafana/tempo:latest
     ports:
       - "16686:16686"
       - "4317:4317"
@@ -737,7 +737,7 @@ volumes:
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki-staging:3100",
-    "OtlpEndpoint": "http://jaeger-staging:4317",
+    "CollectorEndpoint": "http://otel-collector-staging:4317",
     "MinimumLogLevel": "Information",
     "AdditionalLabels": {
       "environment": "staging",
@@ -758,7 +758,7 @@ volumes:
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki.monitoring.svc.cluster.local:3100",
-    "OtlpEndpoint": "http://jaeger.monitoring.svc.cluster.local:4317",
+    "CollectorEndpoint": "http://otel-collector.monitoring.svc.cluster.local:4317",
     "MinimumLogLevel": "Warning",
     "AdditionalLabels": {
       "environment": "production",
@@ -903,9 +903,9 @@ app.Run();
 - Confirme se o Loki está rodando
 - Verifique se `EnableLogging = true`
 
-**Traces não aparecem no Jaeger:**
+**Traces não aparecem no Tempo:**
 - Verifique se `OtlpEndpoint` está correto
-- Confirme se o Jaeger está rodando
+- Confirme se o Tempo está rodando
 - Verifique se `EnableTracing = true`
 
 ### 2. Debug de Configuração

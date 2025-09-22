@@ -26,7 +26,7 @@ public class TempoCollectorStartupExtensionsTests
                 ["Observability:EnableTracing"] = "true",
                 ["Observability:TempoEndpoint"] = "http://tempo:3200",
                 ["Observability:CollectorEndpoint"] = "http://collector:4317",
-                ["Observability:OtlpEndpoint"] = "http://jaeger:4317"
+                ["Observability:OtlpEndpoint"] = "http://otel-collector:4317"
             })
             .Build();
 
@@ -39,7 +39,7 @@ public class TempoCollectorStartupExtensionsTests
         options.ServiceName.Should().Be("TestService");
         options.TempoEndpoint.Should().Be("http://tempo:3200");
         options.CollectorEndpoint.Should().Be("http://collector:4317");
-        options.OtlpEndpoint.Should().Be("http://jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://otel-collector:4317");
     }
 
     [Fact]
@@ -55,7 +55,7 @@ public class TempoCollectorStartupExtensionsTests
             options.EnableTracing = true;
             options.TempoEndpoint = "http://tempo:3200";
             options.CollectorEndpoint = "http://collector:4317";
-            options.OtlpEndpoint = "http://jaeger:4317";
+            options.OtlpEndpoint = "http://otel-collector:4317";
         });
 
         var serviceProvider = services.BuildServiceProvider();
@@ -65,7 +65,7 @@ public class TempoCollectorStartupExtensionsTests
         options.ServiceName.Should().Be("TestService-Code");
         options.TempoEndpoint.Should().Be("http://tempo:3200");
         options.CollectorEndpoint.Should().Be("http://collector:4317");
-        options.OtlpEndpoint.Should().Be("http://jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://otel-collector:4317");
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class TempoCollectorStartupExtensionsTests
                 ["Observability:ServiceName"] = "TestService",
                 ["Observability:EnableTracing"] = "true",
                 ["Observability:CollectorEndpoint"] = "http://collector:4317",
-                ["Observability:OtlpEndpoint"] = "http://jaeger:4317"
+                ["Observability:OtlpEndpoint"] = "http://otel-collector:4317"
             })
             .Build();
 
@@ -90,7 +90,7 @@ public class TempoCollectorStartupExtensionsTests
         // Assert
         var options = serviceProvider.GetRequiredService<IOptions<ObservabilityOptions>>().Value;
         options.CollectorEndpoint.Should().Be("http://collector:4317");
-        options.OtlpEndpoint.Should().Be("http://jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://otel-collector:4317");
     }
 
     [Fact]
@@ -104,7 +104,7 @@ public class TempoCollectorStartupExtensionsTests
                 ["Observability:ServiceName"] = "TestService",
                 ["Observability:EnableTracing"] = "true",
                 ["Observability:CollectorEndpoint"] = "",
-                ["Observability:OtlpEndpoint"] = "http://jaeger:4317"
+                ["Observability:OtlpEndpoint"] = "http://otel-collector:4317"
             })
             .Build();
 
@@ -115,7 +115,7 @@ public class TempoCollectorStartupExtensionsTests
         // Assert
         var options = serviceProvider.GetRequiredService<IOptions<ObservabilityOptions>>().Value;
         options.CollectorEndpoint.Should().Be("");
-        options.OtlpEndpoint.Should().Be("http://jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://otel-collector:4317");
     }
 
     [Fact]
@@ -258,7 +258,7 @@ public class TempoCollectorStartupExtensionsTests
             options.EnableTracing = true;
             options.TempoEndpoint = "http://tempo:3200";
             options.CollectorEndpoint = "http://collector:4317";
-            options.OtlpEndpoint = "http://jaeger:4317";
+            options.OtlpEndpoint = "http://otel-collector:4317";
             options.AdditionalLabels.Add("environment", "test");
             options.AdditionalLabels.Add("component", "tempo-collector");
         });
@@ -270,7 +270,7 @@ public class TempoCollectorStartupExtensionsTests
         options.ServiceName.Should().Be("TestService");
         options.TempoEndpoint.Should().Be("http://tempo:3200");
         options.CollectorEndpoint.Should().Be("http://collector:4317");
-        options.OtlpEndpoint.Should().Be("http://jaeger:4317");
+        options.OtlpEndpoint.Should().Be("http://otel-collector:4317");
         options.AdditionalLabels.Should().ContainKey("environment");
         options.AdditionalLabels.Should().ContainKey("component");
     }

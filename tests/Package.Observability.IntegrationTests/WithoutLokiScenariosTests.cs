@@ -163,7 +163,7 @@ public class WithoutLokiScenariosTests
                         ["Observability:EnableLogging"] = "true",
                         ["Observability:EnableConsoleLogging"] = "true",
                         ["Observability:LokiUrl"] = "", // Sem Loki
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317" // Com OTLP
+                        ["Observability:OtlpEndpoint"] = "http://otel-collector:4317" // Com OTLP
                     };
                     configBuilder.AddInMemoryCollection(config);
                 });
