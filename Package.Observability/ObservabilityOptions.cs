@@ -151,4 +151,89 @@ public class ObservabilityOptions
     /// Custom properties to add to all log events
     /// </summary>
     public Dictionary<string, object> CustomProperties { get; set; } = new();
+
+    // OpenTelemetry Tracing Advanced Configuration
+
+    /// <summary>
+    /// OTLP export protocol (Grpc or HttpProtobuf)
+    /// </summary>
+    public string OtlpProtocol { get; set; } = "Grpc";
+
+    /// <summary>
+    /// Service version for OpenTelemetry resource
+    /// </summary>
+    public string ServiceVersion { get; set; } = "1.0.0";
+
+    /// <summary>
+    /// Enable exception recording in ASP.NET Core instrumentation
+    /// </summary>
+    public bool RecordExceptions { get; set; } = true;
+
+    /// <summary>
+    /// Paths to exclude from tracing (e.g., /metrics, /health)
+    /// </summary>
+    public List<string> ExcludePaths { get; set; } = new() { "/metrics", "/health" };
+
+    // Custom Metrics Configuration
+
+    /// <summary>
+    /// Enable custom route-based metrics
+    /// </summary>
+    public bool EnableRouteMetrics { get; set; } = true;
+
+    /// <summary>
+    /// Custom histogram buckets for request duration metrics
+    /// </summary>
+    public List<double> CustomHistogramBuckets { get; set; } = new();
+
+    /// <summary>
+    /// Custom metric labels to include in all metrics
+    /// </summary>
+    public Dictionary<string, string> CustomMetricLabels { get; set; } = new();
+
+    /// <summary>
+    /// Enable detailed endpoint information in metrics
+    /// </summary>
+    public bool EnableDetailedEndpointMetrics { get; set; } = true;
+
+    /// <summary>
+    /// Custom metric names configuration
+    /// </summary>
+    public MetricNamesConfiguration MetricNames { get; set; } = new();
+}
+
+/// <summary>
+/// Configuration for custom metric names
+/// </summary>
+public class MetricNamesConfiguration
+{
+    /// <summary>
+    /// Name for HTTP requests counter metric
+    /// </summary>
+    public string HttpRequestsTotal { get; set; } = "http_requests_total_by_route";
+
+    /// <summary>
+    /// Name for HTTP request errors counter metric
+    /// </summary>
+    public string HttpRequestErrorsTotal { get; set; } = "http_requests_errors_total_by_route";
+
+    /// <summary>
+    /// Name for HTTP request duration histogram metric
+    /// </summary>
+    public string HttpRequestDurationSeconds { get; set; } = "http_request_duration_seconds_by_route";
+
+    /// <summary>
+    /// Description for HTTP requests counter metric
+    /// </summary>
+    public string HttpRequestsTotalDescription { get; set; } = "Total HTTP requests, labeled by method, endpoint name, and route template.";
+
+    /// <summary>
+    /// Description for HTTP request errors counter metric
+    /// </summary>
+    public string HttpRequestErrorsTotalDescription { get; set; } = "Total HTTP request errors (5xx or unhandled exceptions), labeled by method, endpoint name, and route template.";
+
+    /// <summary>
+    /// Description for HTTP request duration histogram metric
+    /// </summary>
+    public string HttpRequestDurationSecondsDescription { get; set; } = "HTTP request duration in seconds, labeled by method, endpoint name, and route template.";
 }

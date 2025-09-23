@@ -72,7 +72,7 @@ public static class ObservabilityStartupExtensions
             // Configure OpenTelemetry
             var openTelemetryBuilder = services.AddOpenTelemetry()
                 .ConfigureResource(resource => resource
-                    .AddService(serviceName: options.ServiceName)
+                    .AddService(serviceName: options.ServiceName, serviceVersion: options.ServiceVersion)
                     .AddAttributes(options.AdditionalLabels.Select(kv => new KeyValuePair<string, object>(kv.Key, kv.Value))));
 
             // Only configure metrics if enabled
@@ -133,12 +133,14 @@ public static class ObservabilityStartupExtensions
         services.Configure<ObservabilityOptions>(opt =>
         {
             opt.ServiceName = options.ServiceName;
+            opt.ServiceVersion = options.ServiceVersion;
             opt.PrometheusPort = options.PrometheusPort;
             opt.EnableMetrics = options.EnableMetrics;
             opt.EnableTracing = options.EnableTracing;
             opt.EnableLogging = options.EnableLogging;
             opt.LokiUrl = options.LokiUrl;
             opt.OtlpEndpoint = options.OtlpEndpoint;
+            opt.OtlpProtocol = options.OtlpProtocol;
             opt.TempoEndpoint = options.TempoEndpoint;
             opt.CollectorEndpoint = options.CollectorEndpoint;
             opt.EnableConsoleLogging = options.EnableConsoleLogging;
@@ -149,6 +151,13 @@ public static class ObservabilityStartupExtensions
             opt.EnableRuntimeInstrumentation = options.EnableRuntimeInstrumentation;
             opt.EnableHttpClientInstrumentation = options.EnableHttpClientInstrumentation;
             opt.EnableAspNetCoreInstrumentation = options.EnableAspNetCoreInstrumentation;
+            opt.RecordExceptions = options.RecordExceptions;
+            opt.ExcludePaths = options.ExcludePaths;
+            opt.EnableRouteMetrics = options.EnableRouteMetrics;
+            opt.CustomHistogramBuckets = options.CustomHistogramBuckets;
+            opt.CustomMetricLabels = options.CustomMetricLabels;
+            opt.EnableDetailedEndpointMetrics = options.EnableDetailedEndpointMetrics;
+            opt.MetricNames = options.MetricNames;
         });
 
         // Configure OpenTelemetry
@@ -198,7 +207,19 @@ public static class ObservabilityStartupExtensions
         tracing.AddSource(options.ServiceName);
 
         if (options.EnableAspNetCoreInstrumentation)
-            tracing.AddAspNetCoreInstrumentation();
+        {
+            tracing.AddAspNetCoreInstrumentation(aspNetCoreOptions =>
+            {
+                aspNetCoreOptions.RecordException = options.RecordExceptions;
+                
+                // Configure path filtering
+                if (options.ExcludePaths?.Any() == true)
+                {
+                    aspNetCoreOptions.Filter = ctx => 
+                        !options.ExcludePaths.Any(path => ctx.Request.Path.StartsWithSegments(path));
+                }
+            });
+        }
 
         if (options.EnableHttpClientInstrumentation)
             tracing.AddHttpClientInstrumentation();
@@ -212,6 +233,12 @@ public static class ObservabilityStartupExtensions
             tracing.AddOtlpExporter(otlpOptions =>
             {
                 otlpOptions.Endpoint = new Uri(endpoint);
+                
+                // Configure OTLP protocol
+                if (Enum.TryParse<OpenTelemetry.Exporter.OtlpExportProtocol>(options.OtlpProtocol, true, out var protocol))
+                {
+                    otlpOptions.Protocol = protocol;
+                }
             });
         }
     }
@@ -350,5 +377,32 @@ public static class ObservabilityStartupExtensions
     public static IApplicationBuilder UseAutoObservabilityTelemetry(this IApplicationBuilder app)
     {
         return app.UseMiddleware<ZeroConfigTelemetryMiddleware>();
+    }
+
+    /// <summary>
+    /// Adiciona o middleware de métricas personalizadas por rota
+    /// Similar ao exemplo fornecido com métricas customizadas
+    /// </summary>
+    /// <param name="app">Application builder</param>
+    /// <returns>Application builder</returns>
+    public static IApplicationBuilder UseCustomRouteMetrics(this IApplicationBuilder app)
+    {
+        return app.UseMiddleware<CustomRouteMetricsMiddleware>();
+    }
+
+    /// <summary>
+    /// Adiciona o middleware de métricas personalizadas por rota com configuração
+    /// </summary>
+    /// <param name="app">Application builder</param>
+    /// <param name="configureOptions">Action to configure observability options</param>
+    /// <returns>Application builder</returns>
+    public static IApplicationBuilder UseCustomRouteMetrics(
+        this IApplicationBuilder app,
+        Action<ObservabilityOptions> configureOptions)
+    {
+        var options = new ObservabilityOptions();
+        configureOptions(options);
+        
+        return app.UseMiddleware<CustomRouteMetricsMiddleware>();
     }
 }

@@ -66,15 +66,19 @@ app.Run();
 
 ## 📋 Opções de Configuração
 
+### Configurações Básicas
+
 | Propriedade | Tipo | Padrão | Descrição |
 |-------------|------|--------|-----------|
 | `ServiceName` | `string` | `"DefaultService"` | Nome do serviço para identificação |
+| `ServiceVersion` | `string` | `"1.0.0"` | Versão do serviço para OpenTelemetry |
 | `PrometheusPort` | `int` | `9090` | Porta do endpoint de métricas Prometheus |
 | `EnableMetrics` | `bool` | `true` | Habilita coleta de métricas |
 | `EnableTracing` | `bool` | `true` | Habilita rastreamento distribuído |
 | `EnableLogging` | `bool` | `true` | Habilita logs estruturados |
 | `LokiUrl` | `string` | `"http://localhost:3100"` | URL do Grafana Loki |
 | `OtlpEndpoint` | `string` | `"http://localhost:4317"` | Endpoint OTLP para traces |
+| `OtlpProtocol` | `string` | `"Grpc"` | Protocolo OTLP (Grpc ou HttpProtobuf) |
 | `CollectorEndpoint` | `string` | `"http://localhost:4317"` | Endpoint do OpenTelemetry Collector |
 | `TempoEndpoint` | `string` | `"http://localhost:3200"` | Endpoint do Tempo para traces |
 | `EnableConsoleLogging` | `bool` | `true` | Habilita logs no console |
@@ -86,6 +90,23 @@ app.Run();
 | `EnableHttpClientInstrumentation` | `bool` | `true` | Habilita instrumentação HTTP Client |
 | `EnableAspNetCoreInstrumentation` | `bool` | `true` | Habilita instrumentação ASP.NET Core |
 
+### Configurações Avançadas de Tracing
+
+| Propriedade | Tipo | Padrão | Descrição |
+|-------------|------|--------|-----------|
+| `RecordExceptions` | `bool` | `true` | Habilita gravação de exceções no tracing |
+| `ExcludePaths` | `List<string>` | `["/metrics", "/health"]` | Caminhos excluídos do tracing |
+
+### Configurações de Métricas Personalizadas
+
+| Propriedade | Tipo | Padrão | Descrição |
+|-------------|------|--------|-----------|
+| `EnableRouteMetrics` | `bool` | `true` | Habilita métricas personalizadas por rota |
+| `EnableDetailedEndpointMetrics` | `bool` | `true` | Habilita informações detalhadas de endpoint |
+| `CustomHistogramBuckets` | `List<double>` | `[]` | Buckets personalizados para histograma |
+| `CustomMetricLabels` | `Dictionary<string, string>` | `{}` | Labels customizados para métricas |
+| `MetricNames` | `MetricNamesConfiguration` | `new()` | Configuração de nomes de métricas |
+
 ## 📚 Documentação Detalhada
 
 Para configurações avançadas e exemplos específicos, consulte:
@@ -94,6 +115,9 @@ Para configurações avançadas e exemplos específicos, consulte:
 - **[Quick Start](docs/quick-start.md)** - Comece em 30 segundos
 - **[Guia de Uso Completo](docs/usage-guide.md)** - Documentação detalhada de uso
 - **[Exemplos de Configuração](docs/configuration-examples.md)** - Configurações para diferentes cenários
+- **[Análise de Arquitetura OTLP](docs/otlp-architecture-analysis.md)** - OTLP vs. configurações diretas
+- **[Estratégias de Configuração](docs/configuration-strategies.md)** - Diferentes abordagens de configuração
+- **[Diagramas de Arquitetura](docs/architecture-diagrams.md)** - Visualização das arquiteturas
 - **[FAQ](docs/faq.md)** - Perguntas frequentes
 - **[Exemplo Sem Loki](examples/without-loki-example.md)** - Como usar sem Loki
 
@@ -153,7 +177,95 @@ builder.Services.AddObservability(options =>
 
 ## 🎯 Uso Avançado
 
-### Configuração por Código
+### Configuração com Exportação OTLP (Recomendado para Produção)
+
+Para configuração completa com exportação OTLP via gRPC, similar ao exemplo fornecido:
+
+```csharp
+builder.Services.AddObservability(options =>
+{
+    // Configuração básica
+    options.ServiceName = "testeLoki3";
+    options.ServiceVersion = "1.0.0";
+    
+    // Configuração de Tracing com OTLP
+    options.EnableTracing = true;
+    options.OtlpEndpoint = "http://localhost:4317";
+    options.OtlpProtocol = "Grpc"; // ou "HttpProtobuf"
+    options.RecordExceptions = true;
+    options.ExcludePaths = new List<string> { "/metrics", "/health" };
+    
+    // Configuração de Métricas
+    options.EnableMetrics = true;
+    options.EnableRouteMetrics = true; // Métricas personalizadas por rota
+    options.EnableDetailedEndpointMetrics = true;
+    
+    // Buckets personalizados para histograma (padrão: 5ms a ~163s)
+    options.CustomHistogramBuckets = new List<double> 
+    { 
+        0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10 
+    };
+    
+    // Labels customizados para métricas
+    options.CustomMetricLabels = new Dictionary<string, string>
+    {
+        { "environment", "production" },
+        { "region", "us-east-1" }
+    };
+    
+    // Nomes personalizados para métricas
+    options.MetricNames = new MetricNamesConfiguration
+    {
+        HttpRequestsTotal = "http_requests_total_by_route",
+        HttpRequestErrorsTotal = "http_requests_errors_total_by_route",
+        HttpRequestDurationSeconds = "http_request_duration_seconds_by_route"
+    };
+    
+    // Configuração de Logs
+    options.EnableLogging = true;
+    options.LokiUrl = "http://localhost:3100";
+    options.EnableConsoleLogging = true;
+});
+
+var app = builder.Build();
+
+// Adicionar middleware de métricas personalizadas por rota
+app.UseCustomRouteMetrics();
+```
+
+### Configuração via appsettings.json (OTLP)
+
+```json
+{
+  "Observability": {
+    "ServiceName": "testeLoki3",
+    "ServiceVersion": "1.0.0",
+    "EnableTracing": true,
+    "EnableMetrics": true,
+    "EnableLogging": true,
+    "OtlpEndpoint": "http://localhost:4317",
+    "OtlpProtocol": "Grpc",
+    "RecordExceptions": true,
+    "ExcludePaths": ["/metrics", "/health"],
+    "EnableRouteMetrics": true,
+    "EnableDetailedEndpointMetrics": true,
+    "CustomHistogramBuckets": [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10],
+    "CustomMetricLabels": {
+      "environment": "production",
+      "region": "us-east-1"
+    },
+    "MetricNames": {
+      "HttpRequestsTotal": "http_requests_total_by_route",
+      "HttpRequestErrorsTotal": "http_requests_errors_total_by_route",
+      "HttpRequestDurationSeconds": "http_request_duration_seconds_by_route"
+    },
+    "LokiUrl": "http://localhost:3100",
+    "EnableConsoleLogging": true
+  }
+}
+```
+
+### Configuração por Código (Básica)
 
 ```csharp
 builder.Services.AddObservability(options =>
@@ -244,6 +356,71 @@ public class MeuController : ControllerBase
         }
     }
 }
+```
+
+### Métricas Personalizadas por Rota
+
+O pacote inclui um middleware especializado para métricas personalizadas por rota, similar ao exemplo fornecido:
+
+```csharp
+// Program.cs
+builder.Services.AddObservability(options =>
+{
+    options.ServiceName = "testeLoki3";
+    options.ServiceVersion = "1.0.0";
+    options.EnableRouteMetrics = true;
+    options.EnableDetailedEndpointMetrics = true;
+    
+    // Buckets personalizados (padrão: 5ms a ~163s)
+    options.CustomHistogramBuckets = new List<double> 
+    { 
+        0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10 
+    };
+    
+    // Labels customizados
+    options.CustomMetricLabels = new Dictionary<string, string>
+    {
+        { "environment", "production" },
+        { "region", "us-east-1" }
+    };
+});
+
+var app = builder.Build();
+
+// Adicionar middleware de métricas personalizadas
+app.UseCustomRouteMetrics();
+```
+
+#### Métricas Geradas Automaticamente
+
+O middleware gera as seguintes métricas com labels específicos:
+
+1. **`http_requests_total_by_route`** - Contador de requisições HTTP
+   - Labels: `method`, `endpoint`, `route`
+   - Exemplo: `http_requests_total_by_route{method="GET",endpoint="WeatherForecastController.Get",route="/weatherforecast"}`
+
+2. **`http_requests_errors_total_by_route`** - Contador de erros HTTP
+   - Labels: `method`, `endpoint`, `route`
+   - Exemplo: `http_requests_errors_total_by_route{method="GET",endpoint="WeatherForecastController.Get",route="/weatherforecast"}`
+
+3. **`http_request_duration_seconds_by_route`** - Histograma de duração
+   - Labels: `method`, `endpoint`, `route`
+   - Buckets: Configuráveis (padrão: buckets exponenciais)
+
+#### Consultas Prometheus
+
+```promql
+# Total de requisições por rota
+sum(rate(http_requests_total_by_route[5m])) by (route)
+
+# Duração média das requisições (95º percentil)
+histogram_quantile(0.95, rate(http_request_duration_seconds_by_route_bucket[5m]))
+
+# Taxa de erro por rota
+rate(http_requests_errors_total_by_route[5m]) / rate(http_requests_total_by_route[5m])
+
+# Requisições por método e rota
+sum(rate(http_requests_total_by_route[5m])) by (method, route)
 ```
 
 ## 🐳 Docker Compose para Desenvolvimento
@@ -340,6 +517,10 @@ Após configurar o pacote, os seguintes endpoints estarão disponíveis:
 - **Runtime .NET**: GC, threads, exceções, etc.
 - **ASP.NET Core**: Requisições HTTP, duração, status codes
 - **HTTP Client**: Requisições outbound, duração, status codes
+- **Métricas por Rota** (quando `UseCustomRouteMetrics()` é usado):
+  - `http_requests_total_by_route` - Total de requisições por rota
+  - `http_requests_errors_total_by_route` - Total de erros por rota
+  - `http_request_duration_seconds_by_route` - Duração das requisições por rota
 - **Métricas customizadas**: Definidas pela aplicação
 
 ### Logs Estruturados
@@ -353,8 +534,12 @@ Após configurar o pacote, os seguintes endpoints estarão disponíveis:
 
 - **OpenTelemetry**: Padrão da indústria
 - **Tempo**: Armazenamento e consulta de traces
-- **OTLP Export**: Via OpenTelemetry Collector
+- **OTLP Export**: Via OpenTelemetry Collector (gRPC ou HTTP)
 - **Instrumentação automática**: ASP.NET Core, HTTP Client
+- **Configurações avançadas**:
+  - Gravação de exceções (`RecordExceptions`)
+  - Filtros de path (`ExcludePaths`)
+  - Protocolo OTLP configurável (`OtlpProtocol`)
 - **Traces customizados**: Via ActivitySource
 
 ## 🚀 Exemplos de Projetos
@@ -372,6 +557,10 @@ builder.Services.AddObservability(builder.Configuration);
 var app = builder.Build();
 
 app.UseRouting();
+
+// Adicionar middleware de métricas personalizadas por rota
+app.UseCustomRouteMetrics();
+
 app.MapControllers();
 
 app.Run();
