@@ -70,7 +70,7 @@ public class HealthChecksTests
                         ["Observability:EnableLogging"] = "true",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
                         ["Observability:LokiUrl"] = "http://loki:3100",
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317",
+                        ["Observability:OtlpEndpoint"] = "http://otel-collector:4317",
                         ["Observability:TempoEndpoint"] = "http://tempo:3200",
                         ["Observability:CollectorEndpoint"] = "http://collector:4317"
                     };
@@ -206,7 +206,7 @@ public class HealthChecksTests
                         ["Observability:EnableMetrics"] = "false",
                         ["Observability:EnableTracing"] = "true",
                         ["Observability:EnableLogging"] = "false",
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317",
+                        ["Observability:OtlpEndpoint"] = "http://otel-collector:4317",
                         ["Observability:TempoEndpoint"] = "http://tempo:3200",
                         ["Observability:CollectorEndpoint"] = "http://collector:4317"
                     };

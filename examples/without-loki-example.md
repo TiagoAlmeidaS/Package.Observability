@@ -149,7 +149,7 @@ builder.Services.AddObservability(options =>
     options.EnableLogging = true;
     options.EnableConsoleLogging = false;   // Usar Serilog customizado
     options.LokiUrl = "";                  // Remove Loki
-    options.OtlpEndpoint = "http://jaeger:4317";  // Manter tracing
+    options.CollectorEndpoint = "http://otel-collector:4317";  // Manter tracing
     options.MinimumLogLevel = "Information";
 });
 

@@ -26,7 +26,7 @@ Perguntas frequentes e respostas sobre o uso do pacote.
 ### Staging
 - Logs estruturados (Loki)
 - Métricas (Prometheus)
-- Tracing (Jaeger)
+- Tracing (Tempo)
 
 ### Produção
 - Observabilidade completa
@@ -70,7 +70,7 @@ builder.Services.AddObservability(options =>
     options.EnableMetrics = false;
     options.EnableTracing = true;
     options.EnableLogging = false;
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -83,7 +83,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -103,7 +103,7 @@ builder.Services.AddObservability(options =>
 
 ### Tracing (OpenTelemetry)
 - **OpenTelemetry**: Padrão da indústria
-- **OTLP Export**: Compatível com Jaeger, Zipkin, etc.
+- **OTLP Export**: Compatível com Tempo, Zipkin, etc.
 - **Instrumentação automática**: ASP.NET Core, HTTP Client
 - **Traces customizados**: Via ActivitySource
 
@@ -165,7 +165,7 @@ builder.Services.AddObservability(options =>
 ### Problemas Comuns
 - Métricas não aparecem no Prometheus
 - Logs não aparecem no Loki
-- Traces não aparecem no Jaeger
+- Traces não aparecem no Tempo
 
 ### Debug de Configuração
 - Log de configuração

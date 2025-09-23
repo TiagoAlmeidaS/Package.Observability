@@ -77,7 +77,7 @@ public class ConfigurationScenariosTests
                         ["Observability:EnableLogging"] = "true",
                         ["Observability:EnableConsoleLogging"] = "false",
                         ["Observability:LokiUrl"] = "http://loki:3100",
-                        ["Observability:OtlpEndpoint"] = "http://jaeger:4317",
+                        ["Observability:OtlpEndpoint"] = "http://otel-collector:4317",
                         ["Observability:MinimumLogLevel"] = "Information",
                         ["Observability:PrometheusPort"] = GetFreeTcpPort().ToString(),
                         ["Observability:AdditionalLabels:environment"] = "production",

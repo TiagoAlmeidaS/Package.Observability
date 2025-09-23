@@ -108,7 +108,7 @@ options.EnableTracing = true;
 options.EnableLogging = true;
 options.EnableConsoleLogging = false;
 options.LokiUrl = "http://loki:3100";
-options.OtlpEndpoint = "http://jaeger:4317";
+options.OtlpEndpoint = "http://otel-collector:4317";
 ```
 
 ### **Configurações por Componente**

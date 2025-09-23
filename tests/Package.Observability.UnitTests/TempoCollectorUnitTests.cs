@@ -293,8 +293,8 @@ public class TempoCollectorUnitTests
 
     [Theory]
     [InlineData("http://tempo:3200", "http://collector:4317", "http://collector:4317")]
-    [InlineData("http://tempo:3200", "", "http://jaeger:4317")]
-    [InlineData("http://tempo:3200", null, "http://jaeger:4317")]
+    [InlineData("http://tempo:3200", "", "http://otel-collector:4317")]
+    [InlineData("http://tempo:3200", null, "http://otel-collector:4317")]
     public void EndpointPriority_CollectorShouldHavePriorityOverOtlp(string tempoUrl, string? collectorUrl, string otlpUrl)
     {
         // Arrange

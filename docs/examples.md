@@ -418,7 +418,7 @@ else
         options.EnableConsoleLogging = false;
         options.MinimumLogLevel = "Information";
         options.LokiUrl = "http://loki.monitoring.svc.cluster.local:3100";
-        options.OtlpEndpoint = "http://jaeger.monitoring.svc.cluster.local:4317";
+        options.CollectorEndpoint = "http://otel-collector.monitoring.svc.cluster.local:4317";
         options.AdditionalLabels.Add("environment", "production");
     });
 }
@@ -516,10 +516,10 @@ services:
     environment:
       - Observability__ServiceName=MinhaAplicacao
       - Observability__LokiUrl=http://loki:3100
-      - Observability__OtlpEndpoint=http://jaeger:4317
+      - Observability__CollectorEndpoint=http://otel-collector:4317
     depends_on:
       - loki
-      - jaeger
+      - tempo
 
   prometheus:
     image: prom/prometheus:latest
@@ -542,8 +542,8 @@ services:
     ports:
       - "3100:3100"
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
+  tempo:
+    image: grafana/tempo:latest
     ports:
       - "16686:16686"
       - "4317:4317"

@@ -141,7 +141,7 @@ public class ObservabilityStartupExtensionsTests
             options.EnableTracing = false;
             options.EnableLogging = false;
             options.LokiUrl = "http://test-loki:3100";
-            options.OtlpEndpoint = "http://test-jaeger:4317";
+            options.OtlpEndpoint = "http://test-otel-collector:4317";
             options.EnableConsoleLogging = false;
             options.MinimumLogLevel = "Debug";
             options.AdditionalLabels = additionalLabels;
@@ -162,7 +162,7 @@ public class ObservabilityStartupExtensionsTests
         options.Value.EnableTracing.Should().BeFalse();
         options.Value.EnableLogging.Should().BeFalse();
         options.Value.LokiUrl.Should().Be("http://test-loki:3100");
-        options.Value.OtlpEndpoint.Should().Be("http://test-jaeger:4317");
+        options.Value.OtlpEndpoint.Should().Be("http://test-otel-collector:4317");
         options.Value.EnableConsoleLogging.Should().BeFalse();
         options.Value.MinimumLogLevel.Should().Be("Debug");
         options.Value.AdditionalLabels.Should().BeEquivalentTo(additionalLabels);
@@ -348,7 +348,7 @@ public class ObservabilityStartupExtensionsTests
                 ["Observability:EnableTracing"] = "true",
                 ["Observability:EnableLogging"] = "true",
                 ["Observability:LokiUrl"] = "http://loki.test:3100",
-                ["Observability:OtlpEndpoint"] = "http://jaeger.test:4317",
+                ["Observability:OtlpEndpoint"] = "http://otel-collector.test:4317",
                 ["Observability:EnableConsoleLogging"] = "false",
                 ["Observability:MinimumLogLevel"] = "Warning",
                 ["Observability:EnableCorrelationId"] = "false",
@@ -371,7 +371,7 @@ public class ObservabilityStartupExtensionsTests
         options.Value.EnableTracing.Should().BeTrue();
         options.Value.EnableLogging.Should().BeTrue();
         options.Value.LokiUrl.Should().Be("http://loki.test:3100");
-        options.Value.OtlpEndpoint.Should().Be("http://jaeger.test:4317");
+        options.Value.OtlpEndpoint.Should().Be("http://otel-collector.test:4317");
         options.Value.EnableConsoleLogging.Should().BeFalse();
         options.Value.MinimumLogLevel.Should().Be("Warning");
         options.Value.EnableCorrelationId.Should().BeFalse();

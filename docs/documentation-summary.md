@@ -129,7 +129,7 @@ examples/
 ### 2. **Staging**
 - Logs estruturados (Loki)
 - Métricas (Prometheus)
-- Tracing (Jaeger)
+- Tracing (Tempo)
 - Configuração intermediária
 
 ### 3. **Produção**
@@ -179,7 +179,7 @@ builder.Services.AddObservability(options =>
     options.EnableMetrics = false;
     options.EnableTracing = true;
     options.EnableLogging = false;
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -192,7 +192,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
 });
 ```
 
@@ -241,7 +241,7 @@ builder.Services.AddObservability(options =>
 ### Problemas Comuns
 - Métricas não aparecem no Prometheus
 - Logs não aparecem no Loki
-- Traces não aparecem no Jaeger
+- Traces não aparecem no Tempo
 - Erros de configuração
 
 ### Debug

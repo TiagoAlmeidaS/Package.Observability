@@ -93,7 +93,7 @@ builder.Services.AddObservability(options =>
     options.EnableTracing = true;
     options.EnableLogging = true;
     options.LokiUrl = "http://loki:3100";
-    options.OtlpEndpoint = "http://jaeger:4317";
+    options.CollectorEndpoint = "http://otel-collector:4317";
     options.EnableConsoleLogging = false;   // Sem console em produção
 });
 ```
@@ -265,7 +265,7 @@ services:
     "EnableLogging": true,
     "EnableConsoleLogging": false,
     "LokiUrl": "http://loki:3100",
-    "OtlpEndpoint": "http://jaeger:4317",
+    "CollectorEndpoint": "http://otel-collector:4317",
     "MinimumLogLevel": "Information"
   }
 }
