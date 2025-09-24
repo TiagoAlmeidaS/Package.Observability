@@ -325,24 +325,22 @@ public static class ObservabilityStartupExtensions
     /// <param name="options">Opções de observabilidade</param>
     private static void AddHealthChecks(IServiceCollection services, ObservabilityOptions options)
     {
-        services.AddHealthChecks()
+        var healthChecksBuilder = services.AddHealthChecks()
             .AddCheck<ObservabilityHealthCheck>("observability", tags: new[] { "observability", "general" });
 
         if (options.EnableMetrics)
         {
-            services.AddHealthChecks()
-                .AddCheck<MetricsHealthCheck>("metrics", tags: new[] { "observability", "metrics" });
+            healthChecksBuilder.AddCheck<MetricsHealthCheck>("metrics", tags: new[] { "observability", "metrics" });
         }
 
         if (options.EnableTracing)
         {
-            services.AddHealthChecks()
-                .AddCheck<TracingHealthCheck>("tracing", tags: new[] { "observability", "tracing" });
+            healthChecksBuilder.AddCheck<TracingHealthCheck>("tracing", tags: new[] { "observability", "tracing" });
         }
 
         if (options.EnableLogging)
         {
-            services.AddHealthChecks()
+            healthChecksBuilder
                 .AddCheck<LoggingHealthCheck>("logging", tags: new[] { "observability", "logging" })
                 .AddCheck<SerilogHealthCheck>("serilog", tags: new[] { "observability", "logging", "serilog" });
         }

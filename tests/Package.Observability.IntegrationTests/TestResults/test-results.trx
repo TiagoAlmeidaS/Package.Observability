@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f9bd168c-66e0-413d-b258-a1aa39d94ed1" name="tiago@DESKTOP-1PGPAC3 2025-09-23 23:39:35" runUser="DESKTOP-1PGPAC3\tiago" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-09-23T23:39:35.2636787-03:00" queuing="2025-09-23T23:39:35.2636790-03:00" start="2025-09-23T23:39:29.8109683-03:00" finish="2025-09-23T23:40:05.1866116-03:00" />
+  <TestSettings name="default" id="f43065b2-0052-44b2-8cc5-dd2dd628479f">
+    <Deployment runDeploymentRoot="tiago_DESKTOP-1PGPAC3_2025-09-23_23_39_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e291746e-734e-4319-9f5e-8898c4431503" testId="6b97a781-ae63-dba3-5979-6b58504036de" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration" computerName="DESKTOP-1PGPAC3" duration="00:00:04.1367231" startTime="2025-09-23T23:39:43.6196540-03:00" endTime="2025-09-23T23:39:43.6196543-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e291746e-734e-4319-9f5e-8898c4431503">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected healthContent "Healthy" to contain "observability".</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+   at FluentAssertions.Primitives.StringAssertions`1.Contain(String expected, String because, Object[] becauseArgs)&#xD;
+   at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration() in E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs:line 445&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e09c13e8-71fb-4cc9-9d64-1df7f0a59f17" testId="4039ec0d-5e93-13d8-2b95-74b270a48b79" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_ErrorHandling_ShouldHandleErrors" computerName="DESKTOP-1PGPAC3" duration="00:00:04.3356635" startTime="2025-09-23T23:39:52.1877515-03:00" endTime="2025-09-23T23:39:52.1877521-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e09c13e8-71fb-4cc9-9d64-1df7f0a59f17" />
+    <UnitTestResult executionId="5f9c5900-9dc5-44d6-bd31-3a5ee7c73552" testId="a9c5c141-2eb3-5ee6-6225-d7e3ecd6b913" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Tracing_ShouldGenerateTraces" computerName="DESKTOP-1PGPAC3" duration="00:00:04.2438592" startTime="2025-09-23T23:39:39.4775920-03:00" endTime="2025-09-23T23:39:39.4775922-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f9c5900-9dc5-44d6-bd31-3a5ee7c73552" />
+    <UnitTestResult executionId="3143c6a0-9c42-45c8-82e4-dc8b6156c904" testId="7cf09af0-605f-00ca-3354-b7cbd7e91a1f" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_FullIntegration_ShouldWork" computerName="DESKTOP-1PGPAC3" duration="00:00:04.3190260" startTime="2025-09-23T23:40:05.0403297-03:00" endTime="2025-09-23T23:40:05.0403299-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3143c6a0-9c42-45c8-82e4-dc8b6156c904">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected options.ExcludePaths {"/metrics", "/health"} to contain "/swagger".</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Collections.GenericCollectionAssertions`3.Contain(T expected, String because, Object[] becauseArgs)&#xD;
+   at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_FullIntegration_ShouldWork() in E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs:line 330&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b44cd135-0199-476b-80ed-702f5b97a4dc" testId="a1fea323-d1e2-536a-ce76-8d20834315ad" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_CodeConfiguration_ShouldWork" computerName="DESKTOP-1PGPAC3" duration="00:00:04.2308608" startTime="2025-09-23T23:39:47.8499805-03:00" endTime="2025-09-23T23:39:47.8499807-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b44cd135-0199-476b-80ed-702f5b97a4dc" />
+    <UnitTestResult executionId="ba0fc95a-59b1-4489-82c8-2627edbf3abc" testId="52867333-b936-6bde-1d42-0a2f461e5595" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Logs_ShouldGenerateLogs" computerName="DESKTOP-1PGPAC3" duration="00:00:04.2688802" startTime="2025-09-23T23:40:00.7201193-03:00" endTime="2025-09-23T23:40:00.7201195-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba0fc95a-59b1-4489-82c8-2627edbf3abc" />
+    <UnitTestResult executionId="fcfd8f99-a82a-44fd-91e1-2d0170dcd3ff" testId="d2a3766c-56a6-81bd-852b-8dbd5450a403" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics" computerName="DESKTOP-1PGPAC3" duration="00:00:04.8359393" startTime="2025-09-23T23:39:35.2360977-03:00" endTime="2025-09-23T23:39:35.2361251-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fcfd8f99-a82a-44fd-91e1-2d0170dcd3ff">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected options.CustomHistogramBuckets to contain 15 item(s), but found 0: {empty}.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+   at FluentAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)&#xD;
+   at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics() in E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs:line 194&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d4743384-2d1f-495f-bc46-36493d697726" testId="79fcc7e0-6fdb-c0b8-8309-2306943839bf" testName="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Configuration_ShouldWork" computerName="DESKTOP-1PGPAC3" duration="00:00:04.2623950" startTime="2025-09-23T23:39:56.4514148-03:00" endTime="2025-09-23T23:39:56.4514151-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4743384-2d1f-495f-bc46-36493d697726">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected options.CustomHistogramBuckets to contain 11 item(s), but found 0: {empty}.</Message>
+          <StackTrace>   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+   at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+   at FluentAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)&#xD;
+   at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Configuration_ShouldWork() in E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs:line 79&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_ErrorHandling_ShouldHandleErrors" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="4039ec0d-5e93-13d8-2b95-74b270a48b79">
+      <Execution id="e09c13e8-71fb-4cc9-9d64-1df7f0a59f17" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_ErrorHandling_ShouldHandleErrors" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_CodeConfiguration_ShouldWork" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="a1fea323-d1e2-536a-ce76-8d20834315ad">
+      <Execution id="b44cd135-0199-476b-80ed-702f5b97a4dc" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_CodeConfiguration_ShouldWork" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_FullIntegration_ShouldWork" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="7cf09af0-605f-00ca-3354-b7cbd7e91a1f">
+      <Execution id="3143c6a0-9c42-45c8-82e4-dc8b6156c904" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_FullIntegration_ShouldWork" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Logs_ShouldGenerateLogs" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="52867333-b936-6bde-1d42-0a2f461e5595">
+      <Execution id="ba0fc95a-59b1-4489-82c8-2627edbf3abc" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_Logs_ShouldGenerateLogs" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="6b97a781-ae63-dba3-5979-6b58504036de">
+      <Execution id="e291746e-734e-4319-9f5e-8898c4431503" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Configuration_ShouldWork" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="79fcc7e0-6fdb-c0b8-8309-2306943839bf">
+      <Execution id="d4743384-2d1f-495f-bc46-36493d697726" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_Configuration_ShouldWork" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Tracing_ShouldGenerateTraces" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="a9c5c141-2eb3-5ee6-6225-d7e3ecd6b913">
+      <Execution id="5f9c5900-9dc5-44d6-bd31-3a5ee7c73552" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_Tracing_ShouldGenerateTraces" />
+    </UnitTest>
+    <UnitTest name="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics" storage="e:\projects\megawish\package.observability\tests\package.observability.integrationtests\bin\debug\net8.0\package.observability.integrationtests.dll" id="d2a3766c-56a6-81bd-852b-8dbd5450a403">
+      <Execution id="fcfd8f99-a82a-44fd-91e1-2d0170dcd3ff" />
+      <TestMethod codeBase="E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\bin\Debug\net8.0\Package.Observability.IntegrationTests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests" name="OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6b97a781-ae63-dba3-5979-6b58504036de" executionId="e291746e-734e-4319-9f5e-8898c4431503" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4039ec0d-5e93-13d8-2b95-74b270a48b79" executionId="e09c13e8-71fb-4cc9-9d64-1df7f0a59f17" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a9c5c141-2eb3-5ee6-6225-d7e3ecd6b913" executionId="5f9c5900-9dc5-44d6-bd31-3a5ee7c73552" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7cf09af0-605f-00ca-3354-b7cbd7e91a1f" executionId="3143c6a0-9c42-45c8-82e4-dc8b6156c904" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a1fea323-d1e2-536a-ce76-8d20834315ad" executionId="b44cd135-0199-476b-80ed-702f5b97a4dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="52867333-b936-6bde-1d42-0a2f461e5595" executionId="ba0fc95a-59b1-4489-82c8-2627edbf3abc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d2a3766c-56a6-81bd-852b-8dbd5450a403" executionId="fcfd8f99-a82a-44fd-91e1-2d0170dcd3ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79fcc7e0-6fdb-c0b8-8309-2306943839bf" executionId="d4743384-2d1f-495f-bc46-36493d697726" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="4" failed="4" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 8.0.18)&#xD;
+[xUnit.net 00:00:00.08]   Discovering: Package.Observability.IntegrationTests&#xD;
+[xUnit.net 00:00:00.13]   Discovered:  Package.Observability.IntegrationTests&#xD;
+[xUnit.net 00:00:00.14]   Starting:    Package.Observability.IntegrationTests&#xD;
+[23:39:30 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:30 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:30 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:30 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:30 WRN] WebApi.Example Logging is disabled in configuration&#xD;
+[23:39:30 WRN] WebApi.Example Falha ao configurar SerilogService&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:30 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 87ms&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 100ms&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 102ms&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 102ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 99.6366ms.&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 107.1092ms.&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 105.7574ms.&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 107.8486ms.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 115ms&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 115ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 119.9079ms.&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 120.1705ms.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 132ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 136.3216ms.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.1004ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.7055ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 142.9407ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.0018ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.1403ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.1236ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 143.1667ms&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.0561ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.8412ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.0679ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.9898ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.1822ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 214.0865ms&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 213.6892ms&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 147ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 151.5639ms.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 158.447ms&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 222.5372ms&#xD;
+[23:39:30 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:30 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:30 INF] WebApi.Example Requisi��o processada em 178ms&#xD;
+[23:39:30 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 182.6208ms.&#xD;
+[23:39:30 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:30 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 190.005ms&#xD;
+[23:39:30 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:30 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 252.5878ms&#xD;
+[23:39:31 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:31 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:31 INF] WebApi.Example Requisi��o processada em 193ms&#xD;
+[23:39:31 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 197.6129ms.&#xD;
+[23:39:31 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:31 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 204.2801ms&#xD;
+[23:39:31 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:31 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 266.8142ms&#xD;
+[23:39:31 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:31 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[xUnit.net 00:00:05.02]       Expected options.CustomHistogramBuckets to contain 15 item(s), but found 0: {empty}.&#xD;
+[xUnit.net 00:00:05.02]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+[xUnit.net 00:00:05.02]            at FluentAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)&#xD;
+[xUnit.net 00:00:05.02]         E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs(194,0): at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics()&#xD;
+[xUnit.net 00:00:05.02]         --- End of stack trace from previous location ---&#xD;
+[23:39:35 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:35 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:35 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:35 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:35 WRN] WebApi.Example Logging is disabled in configuration&#xD;
+[23:39:35 WRN] WebApi.Example Falha ao configurar SerilogService&#xD;
+[23:39:35 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:35 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:35 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:35 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:35 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:35 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:35 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:35 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:35 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:35 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:35 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:35 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:35 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:35 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:35 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:35 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:35 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:35 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:35 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Requisi��o processada em 56ms&#xD;
+[23:39:35 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 56.2587ms.&#xD;
+[23:39:35 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:35 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 59.229ms&#xD;
+[23:39:35 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 67.6929ms&#xD;
+[23:39:35 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:35 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:35 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Requisi��o processada em 89ms&#xD;
+[23:39:35 INF] WebApi.Example Requisi��o processada em 89ms&#xD;
+[23:39:35 INF] WebApi.Example Requisi��o processada em 89ms&#xD;
+[23:39:35 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 90.0833ms.&#xD;
+[23:39:35 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 90.3977ms.&#xD;
+[23:39:35 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 90.582ms.&#xD;
+[23:39:35 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:35 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:35 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:35 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 93.5674ms&#xD;
+[23:39:35 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 93.7544ms&#xD;
+[23:39:35 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 93.7975ms&#xD;
+[23:39:35 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 103.3614ms&#xD;
+[23:39:35 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 103.9094ms&#xD;
+[23:39:35 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 104.5661ms&#xD;
+[23:39:35 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:35 WRN] WebApi.Example Serilog is not configured, falling back to default logger&#xD;
+[23:39:35 INF] WebApi.Example Requisi��o processada em 102ms&#xD;
+[23:39:35 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 103.1363ms.&#xD;
+[23:39:35 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:35 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 104.0432ms&#xD;
+[23:39:35 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:35 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 112.9053ms&#xD;
+[23:39:35 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:35 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:39 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:39 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:39 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:39 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:39 INF] WebApi.Example Serilog configured successfully with 3 sinks&#xD;
+[23:39:39 INF] WebApi.Example SerilogService configurado com sucesso&#xD;
+[23:39:39 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/health - null null&#xD;
+[23:39:39 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:39 INF] WebApi.Example Request starting GET /health from null&#xD;
+[23:39:39 INF] WebApi.Example Executing endpoint 'Health checks'&#xD;
+[23:39:39 INF] Package.Observability.IntegrationTest-HealthCheck Health check test log from Package.Observability.IntegrationTest-HealthCheck at 09/24/2025 02:39:39&#xD;
+[23:39:39 INF] WebApi.Example Executed endpoint 'Health checks'&#xD;
+[23:39:39 INF] WebApi.Example Request completed GET /health 200 in 14ms&#xD;
+[23:39:39 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/health - 200 null text/plain 17.659ms&#xD;
+[23:39:39 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:39 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[xUnit.net 00:00:13.40]       Expected healthContent "Healthy" to contain "observability".&#xD;
+[xUnit.net 00:00:13.40]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+[xUnit.net 00:00:13.40]            at FluentAssertions.Primitives.StringAssertions`1.Contain(String expected, String because, Object[] becauseArgs)&#xD;
+[xUnit.net 00:00:13.40]         E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs(445,0): at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration()&#xD;
+[xUnit.net 00:00:13.40]         --- End of stack trace from previous location ---&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Inicializando SerilogService...&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Serilog configured successfully with 3 sinks&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig SerilogService configurado com sucesso&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:43 WRN] Package.Observability.IntegrationTest-CodeConfig Failed to determine the https port for redirect.&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Request starting GET /WeatherForecast from null&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Iniciando busca de previs�o do tempo&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Solicita��o de previs�o do tempo recebida de &#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Previs�o do tempo gerada com sucesso: 5 dias, processamento em 93ms&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Requisi��o processada em 94ms&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 96.1072ms.&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 103.807ms&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Request completed GET /WeatherForecast 200 in 106ms&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 107.9862ms&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Finalizando SerilogService...&#xD;
+[23:39:43 INF] Package.Observability.IntegrationTest-CodeConfig Finalizando SerilogService...&#xD;
+[23:39:47 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:47 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:47 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:47 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:47 INF] WebApi.Example Serilog configured successfully with 3 sinks&#xD;
+[23:39:47 INF] WebApi.Example SerilogService configurado com sucesso&#xD;
+[23:39:47 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/nonexistent - null null&#xD;
+[23:39:47 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:47 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/invalid-endpoint - null null&#xD;
+[23:39:47 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:47 INF] WebApi.Example Request starting GET /nonexistent from null&#xD;
+[23:39:47 INF] WebApi.Example Request completed GET /nonexistent 404 in 0ms&#xD;
+[23:39:47 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/nonexistent - 404 null null 1.498ms&#xD;
+[23:39:47 INF] WebApi.Example Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/nonexistent, Response status code: 404&#xD;
+[23:39:47 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:39:47 INF] WebApi.Example Request starting GET /invalid-endpoint from null&#xD;
+[23:39:47 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:47 INF] WebApi.Example Request completed GET /invalid-endpoint 404 in 0ms&#xD;
+[23:39:47 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/invalid-endpoint - 404 null null 2.3058ms&#xD;
+[23:39:47 INF] WebApi.Example Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/invalid-endpoint, Response status code: 404&#xD;
+[23:39:47 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:47 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:47 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:47 INF] Package.Observability.IntegrationTest-ErrorHandling Solicita��o de previs�o do tempo recebida de &#xD;
+[23:39:48 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:48 INF] Package.Observability.IntegrationTest-ErrorHandling Previs�o do tempo gerada com sucesso: 5 dias, processamento em 177ms&#xD;
+[23:39:48 INF] WebApi.Example Requisi��o processada em 178ms&#xD;
+[23:39:48 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 178.7189ms.&#xD;
+[23:39:48 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:48 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 190.7316ms&#xD;
+[23:39:48 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:48 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 194ms&#xD;
+[23:39:48 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 196.4568ms&#xD;
+[23:39:48 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:48 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:52 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:52 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:52 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:52 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:52 INF] WebApi.Example Serilog configured successfully with 3 sinks&#xD;
+[23:39:52 INF] WebApi.Example SerilogService configurado com sucesso&#xD;
+[23:39:52 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:52 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:52 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:39:52 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:52 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:52 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:52 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:52 INF] Package.Observability.IntegrationTest Solicita��o de previs�o do tempo recebida de &#xD;
+[23:39:52 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:52 INF] Package.Observability.IntegrationTest Previs�o do tempo gerada com sucesso: 5 dias, processamento em 127ms&#xD;
+[23:39:52 INF] WebApi.Example Requisi��o processada em 127ms&#xD;
+[23:39:52 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 127.6405ms.&#xD;
+[23:39:52 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:52 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 129.5254ms&#xD;
+[23:39:52 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:52 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 132ms&#xD;
+[23:39:52 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 133.6549ms&#xD;
+[23:39:52 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:52 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[xUnit.net 00:00:26.23]       Expected options.CustomHistogramBuckets to contain 11 item(s), but found 0: {empty}.&#xD;
+[xUnit.net 00:00:26.23]       Stack Trace:&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Execution.AssertionScope.FailWith(String message, Object[] args)&#xD;
+[xUnit.net 00:00:26.23]            at FluentAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)&#xD;
+[xUnit.net 00:00:26.23]         E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs(79,0): at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Configuration_ShouldWork()&#xD;
+[xUnit.net 00:00:26.23]         --- End of stack trace from previous location ---&#xD;
+[23:39:56 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:39:56 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:39:56 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:39:56 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:39:56 INF] WebApi.Example Serilog configured successfully with 3 sinks&#xD;
+[23:39:56 INF] WebApi.Example SerilogService configurado com sucesso&#xD;
+[23:39:56 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:39:56 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:39:56 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:39:56 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:56 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:39:56 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:39:56 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:39:56 INF] Package.Observability.IntegrationTest-Logs Solicita��o de previs�o do tempo recebida de &#xD;
+[23:39:56 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:39:56 INF] Package.Observability.IntegrationTest-Logs Previs�o do tempo gerada com sucesso: 5 dias, processamento em 144ms&#xD;
+[23:39:56 INF] WebApi.Example Requisi��o processada em 144ms&#xD;
+[23:39:56 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 144.6971ms.&#xD;
+[23:39:56 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:39:56 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 146.8075ms&#xD;
+[23:39:56 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:39:56 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 149ms&#xD;
+[23:39:56 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 151ms&#xD;
+[23:39:56 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:39:56 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:40:00 INF] WebApi.Example WebApi.Example iniciada com observabilidade completa&#xD;
+[23:40:00 INF] WebApi.Example M�tricas dispon�veis em: http://localhost:9090/metrics&#xD;
+[23:40:00 INF] WebApi.Example Swagger dispon�vel em: https://localhost:7000/swagger&#xD;
+[23:40:00 INF] WebApi.Example Inicializando SerilogService...&#xD;
+[23:40:00 INF] WebApi.Example Serilog configured successfully with 3 sinks&#xD;
+[23:40:00 INF] WebApi.Example SerilogService configurado com sucesso&#xD;
+[23:40:00 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:40:00 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:40:00 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:40:00 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/WeatherForecast - null null&#xD;
+[23:40:00 INF] WebApi.Example Request starting HTTP/1.1 GET http://localhost/nonexistent - null null&#xD;
+[23:40:00 WRN] WebApi.Example Failed to determine the https port for redirect.&#xD;
+[23:40:00 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:40:00 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:40:00 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:40:00 INF] WebApi.Example Request starting GET /WeatherForecast from null&#xD;
+[23:40:00 INF] WebApi.Example Request starting GET /nonexistent from null&#xD;
+[23:40:00 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Executing endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request completed GET /nonexistent 404 in 0ms&#xD;
+[23:40:00 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/nonexistent - 404 null null 2.156ms&#xD;
+[23:40:00 INF] WebApi.Example Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost/nonexistent, Response status code: 404&#xD;
+[23:40:00 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:40:00 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:40:00 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:40:00 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:40:00 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:40:00 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:40:00 INF] WebApi.Example Route matched with {action = "Get", controller = "WeatherForecast"}. Executing controller action with signature System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[WebApi.Example.WeatherForecast]] Get() on controller WebApi.Example.Controllers.WeatherForecastController (WebApi.Example).&#xD;
+[23:40:00 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Solicita��o de previs�o do tempo recebida de &#xD;
+[23:40:00 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Solicita��o de previs�o do tempo recebida de &#xD;
+[23:40:00 INF] WebApi.Example Executing action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) - Validation state: Valid&#xD;
+[23:40:00 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:40:00 INF] WebApi.Example Iniciando busca de previs�o do tempo&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Solicita��o de previs�o do tempo recebida de &#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Solicita��o de previs�o do tempo recebida de &#xD;
+[23:40:00 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Previs�o do tempo gerada com sucesso: 5 dias, processamento em 69ms&#xD;
+[23:40:00 INF] WebApi.Example Requisi��o processada em 70ms&#xD;
+[23:40:00 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 70.2226ms.&#xD;
+[23:40:00 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:40:00 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 71.8901ms&#xD;
+[23:40:00 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 74ms&#xD;
+[23:40:00 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 75.7487ms&#xD;
+[23:40:00 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Previs�o do tempo gerada com sucesso: 5 dias, processamento em 133ms&#xD;
+[23:40:00 INF] WebApi.Example Requisi��o processada em 133ms&#xD;
+[23:40:00 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 134.3338ms.&#xD;
+[23:40:00 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:40:00 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 135.2896ms&#xD;
+[23:40:00 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 137ms&#xD;
+[23:40:00 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 139.6839ms&#xD;
+[23:40:00 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Previs�o do tempo gerada com sucesso: 5 dias, processamento em 149ms&#xD;
+[23:40:00 INF] WebApi.Example Requisi��o processada em 149ms&#xD;
+[23:40:00 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 149.8958ms.&#xD;
+[23:40:00 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:40:00 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 150.5835ms&#xD;
+[23:40:00 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 152ms&#xD;
+[23:40:00 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 154.8426ms&#xD;
+[23:40:00 INF] WebApi.Example Previs�o do tempo gerada com sucesso. 5 dias retornados&#xD;
+[23:40:00 INF] Package.Observability.IntegrationTest-FullIntegration Previs�o do tempo gerada com sucesso: 5 dias, processamento em 195ms&#xD;
+[23:40:00 INF] WebApi.Example Requisi��o processada em 195ms&#xD;
+[23:40:00 INF] WebApi.Example Executed action method WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 195.6262ms.&#xD;
+[23:40:00 INF] WebApi.Example Executing ObjectResult, writing value of type 'WebApi.Example.WeatherForecast[]'.&#xD;
+[23:40:00 INF] WebApi.Example Executed action WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example) in 196.2329ms&#xD;
+[23:40:00 INF] WebApi.Example Executed endpoint 'WebApi.Example.Controllers.WeatherForecastController.Get (WebApi.Example)'&#xD;
+[23:40:00 INF] WebApi.Example Request completed GET /WeatherForecast 200 in 198ms&#xD;
+[23:40:00 INF] WebApi.Example Request finished HTTP/1.1 GET http://localhost/WeatherForecast - 200 null application/json; charset=utf-8 201.4626ms&#xD;
+[23:40:00 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[23:40:00 INF] WebApi.Example Finalizando SerilogService...&#xD;
+[xUnit.net 00:00:34.82]       Expected options.ExcludePaths {"/metrics", "/health"} to contain "/swagger".&#xD;
+[xUnit.net 00:00:34.82]       Stack Trace:&#xD;
+[xUnit.net 00:00:34.82]            at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)&#xD;
+[xUnit.net 00:00:34.82]            at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)&#xD;
+[xUnit.net 00:00:34.82]            at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)&#xD;
+[xUnit.net 00:00:34.82]            at FluentAssertions.Collections.GenericCollectionAssertions`3.Contain(T expected, String because, Object[] becauseArgs)&#xD;
+[xUnit.net 00:00:34.82]         E:\projects\megawish\Package.Observability\tests\Package.Observability.IntegrationTests\OtlpHttpProtobufIntegrationTests.cs(330,0): at Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_FullIntegration_ShouldWork()&#xD;
+[xUnit.net 00:00:34.82]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:34.83]   Finished:    Package.Observability.IntegrationTests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-1PGPAC3" outcome="Error" timestamp="2025-09-23T23:39:35.2332686-03:00">
+        <Text>[xUnit.net 00:00:05.02]     Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Metrics_ShouldGenerateMetrics [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-1PGPAC3" outcome="Error" timestamp="2025-09-23T23:39:43.6187583-03:00">
+        <Text>[xUnit.net 00:00:13.40]     Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_HealthCheck_ShouldValidateConfiguration [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-1PGPAC3" outcome="Error" timestamp="2025-09-23T23:39:56.4511596-03:00">
+        <Text>[xUnit.net 00:00:26.23]     Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_Configuration_ShouldWork [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-1PGPAC3" outcome="Error" timestamp="2025-09-23T23:40:05.0403205-03:00">
+        <Text>[xUnit.net 00:00:34.82]     Package.Observability.IntegrationTests.OtlpHttpProtobufIntegrationTests.OtlpHttpProtobuf_FullIntegration_ShouldWork [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

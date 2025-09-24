@@ -35,43 +35,29 @@ public class CustomRouteMetricsMiddleware
         _requestByRouteCounter = meter.CreateCounter<long>(
             _options.MetricNames.HttpRequestsTotal,
             "count",
-            _options.MetricNames.HttpRequestsTotalDescription,
-            new CounterConfiguration
-            {
-                LabelNames = new[] { "method", "endpoint", "route" }
-            });
+            _options.MetricNames.HttpRequestsTotalDescription);
 
         _errorByRouteCounter = meter.CreateCounter<long>(
             _options.MetricNames.HttpRequestErrorsTotal,
             "count",
-            _options.MetricNames.HttpRequestErrorsTotalDescription,
-            new CounterConfiguration
-            {
-                LabelNames = new[] { "method", "endpoint", "route" }
-            });
-
-        // Configure histogram buckets
-        var histogramConfig = new HistogramConfiguration
-        {
-            LabelNames = new[] { "method", "endpoint", "route" }
-        };
+            _options.MetricNames.HttpRequestErrorsTotalDescription);
 
         // Use custom buckets if provided, otherwise use default exponential buckets
+        double[] buckets;
         if (_options.CustomHistogramBuckets?.Any() == true)
         {
-            histogramConfig.Buckets = _options.CustomHistogramBuckets.ToArray();
+            buckets = _options.CustomHistogramBuckets.ToArray();
         }
         else
         {
             // Default exponential buckets: 5ms .. ~163s
-            histogramConfig.Buckets = Histogram.ExponentialBuckets(0.005, 2, 15);
+            buckets = new double[] { 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 25, 50, 100, 163 };
         }
 
         _requestDurationByRoute = meter.CreateHistogram<double>(
             _options.MetricNames.HttpRequestDurationSeconds,
             "seconds",
-            _options.MetricNames.HttpRequestDurationSecondsDescription,
-            histogramConfig);
+            _options.MetricNames.HttpRequestDurationSecondsDescription);
     }
 
     public async Task InvokeAsync(HttpContext context)
