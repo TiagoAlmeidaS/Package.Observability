@@ -20,7 +20,7 @@ namespace Package.Observability.IntegrationTests;
 /// </summary>
 public class OtlpHttpProtobufIntegrationTests
 {
-    private const string TestOtlpEndpoint = "https://collector.qas.tastechdeveloper.shop";
+    private const string TestOtlpEndpoint = "https://localhost:4317";
     private const string TestServiceName = "Package.Observability.IntegrationTest";
 
     [Fact]

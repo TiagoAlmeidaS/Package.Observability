@@ -51,22 +51,26 @@ public static class ConfigurationValidator
             errors.Add($"LokiUrl inválida: {options.LokiUrl}");
         }
 
-        // Validação do endpoint OTLP
-        if (!string.IsNullOrEmpty(options.OtlpEndpoint) && !IsValidUrl(options.OtlpEndpoint))
+        // Validação dos endpoints de tracing apenas se tracing estiver habilitado
+        if (options.EnableTracing)
         {
-            errors.Add($"OtlpEndpoint inválido: {options.OtlpEndpoint}");
-        }
+            // Validação do endpoint OTLP
+            if (!string.IsNullOrEmpty(options.OtlpEndpoint) && !IsValidUrl(options.OtlpEndpoint))
+            {
+                errors.Add($"OtlpEndpoint inválido: {options.OtlpEndpoint}");
+            }
 
-        // Validação do endpoint do Tempo
-        if (!string.IsNullOrEmpty(options.TempoEndpoint) && !IsValidUrl(options.TempoEndpoint))
-        {
-            errors.Add($"TempoEndpoint inválido: {options.TempoEndpoint}");
-        }
+            // Validação do endpoint do Tempo
+            if (!string.IsNullOrEmpty(options.TempoEndpoint) && !IsValidUrl(options.TempoEndpoint))
+            {
+                errors.Add($"TempoEndpoint inválido: {options.TempoEndpoint}");
+            }
 
-        // Validação do endpoint do Collector
-        if (!string.IsNullOrEmpty(options.CollectorEndpoint) && !IsValidUrl(options.CollectorEndpoint))
-        {
-            errors.Add($"CollectorEndpoint inválido: {options.CollectorEndpoint}");
+            // Validação do endpoint do Collector
+            if (!string.IsNullOrEmpty(options.CollectorEndpoint) && !IsValidUrl(options.CollectorEndpoint))
+            {
+                errors.Add($"CollectorEndpoint inválido: {options.CollectorEndpoint}");
+            }
         }
 
         // Validação do nível de log

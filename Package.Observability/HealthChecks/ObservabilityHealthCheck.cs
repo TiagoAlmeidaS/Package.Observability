@@ -29,8 +29,8 @@ public class ObservabilityHealthCheck : IHealthCheck
                 ["EnableTracing"] = _options.EnableTracing,
                 ["EnableLogging"] = _options.EnableLogging,
                 ["PrometheusPort"] = _options.PrometheusPort,
-                ["TempoEndpoint"] = _options.TempoEndpoint ?? "Não configurado",
-                ["CollectorEndpoint"] = _options.CollectorEndpoint ?? "Não configurado"
+                ["TempoEndpoint"] = string.IsNullOrEmpty(_options.TempoEndpoint) ? "Não configurado" : _options.TempoEndpoint,
+                ["CollectorEndpoint"] = string.IsNullOrEmpty(_options.CollectorEndpoint) ? "Não configurado" : _options.CollectorEndpoint
             };
 
             var issues = new List<string>();
@@ -183,9 +183,9 @@ public class TracingHealthCheck : IHealthCheck
 
             var data = new Dictionary<string, object>
             {
-                ["OtlpEndpoint"] = _options.OtlpEndpoint ?? "Não configurado",
-                ["TempoEndpoint"] = _options.TempoEndpoint ?? "Não configurado",
-                ["CollectorEndpoint"] = _options.CollectorEndpoint ?? "Não configurado",
+                ["OtlpEndpoint"] = string.IsNullOrEmpty(_options.OtlpEndpoint) ? "Não configurado" : _options.OtlpEndpoint,
+                ["TempoEndpoint"] = string.IsNullOrEmpty(_options.TempoEndpoint) ? "Não configurado" : _options.TempoEndpoint,
+                ["CollectorEndpoint"] = string.IsNullOrEmpty(_options.CollectorEndpoint) ? "Não configurado" : _options.CollectorEndpoint,
                 ["EnableHttpClientInstrumentation"] = _options.EnableHttpClientInstrumentation,
                 ["EnableAspNetCoreInstrumentation"] = _options.EnableAspNetCoreInstrumentation
             };

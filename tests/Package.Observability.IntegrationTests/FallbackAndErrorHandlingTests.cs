@@ -33,6 +33,21 @@ public class FallbackAndErrorHandlingTests
                         };
                         configBuilder.AddInMemoryCollection(config);
                     });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
+                    });
                 });
 
             var client = factory.CreateClient();
@@ -57,10 +72,26 @@ public class FallbackAndErrorHandlingTests
                     {
                         var config = new Dictionary<string, string?>
                         {
-                            // ServiceName ausente deve causar erro
+                            // ServiceName vazio deve causar erro
+                            ["Observability:ServiceName"] = "",
                             ["Observability:EnableMetrics"] = "true"
                         };
                         configBuilder.AddInMemoryCollection(config);
+                    });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
                     });
                 });
 
@@ -89,6 +120,21 @@ public class FallbackAndErrorHandlingTests
                             ["Observability:PrometheusPort"] = "-1" // Porta inválida
                         };
                         configBuilder.AddInMemoryCollection(config);
+                    });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
                     });
                 });
 
@@ -119,6 +165,21 @@ public class FallbackAndErrorHandlingTests
                         };
                         configBuilder.AddInMemoryCollection(config);
                     });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
+                    });
                 });
 
             var client = factory.CreateClient();
@@ -148,6 +209,21 @@ public class FallbackAndErrorHandlingTests
                         };
                         configBuilder.AddInMemoryCollection(config);
                     });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
+                    });
                 });
 
             var client = factory.CreateClient();
@@ -176,6 +252,21 @@ public class FallbackAndErrorHandlingTests
                             ["Observability:MinimumLogLevel"] = "InvalidLevel" // Nível inválido
                         };
                         configBuilder.AddInMemoryCollection(config);
+                    });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
                     });
                 });
 

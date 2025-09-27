@@ -30,10 +30,13 @@ public static class ObservabilityStartupExtensions
     /// <param name="sectionName">Configuration section name (default: "Observability")</param>
     /// <returns>The service collection for chaining</returns>
     public static IServiceCollection AddObservability(
-        this IServiceCollection services, 
-        IConfiguration configuration, 
+        this IServiceCollection services,
+        IConfiguration configuration,
         string sectionName = "Observability")
     {
+        ArgumentNullException.ThrowIfNull(configuration);
+        ArgumentNullException.ThrowIfNull(sectionName);
+        
         try
         {
             // Bind configuration
@@ -127,6 +130,8 @@ public static class ObservabilityStartupExtensions
         this IServiceCollection services,
         Action<ObservabilityOptions> configureOptions)
     {
+        ArgumentNullException.ThrowIfNull(configureOptions);
+        
         var options = new ObservabilityOptions();
         configureOptions(options);
 
@@ -187,6 +192,9 @@ public static class ObservabilityStartupExtensions
         if (!options.EnableMetrics) return;
 
         metrics.AddMeter(options.ServiceName);
+        
+        // Adicionar Meter para métricas customizadas
+        metrics.AddMeter("CustomMetrics");
 
         if (options.EnableRuntimeInstrumentation)
             metrics.AddRuntimeInstrumentation();

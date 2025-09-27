@@ -317,7 +317,8 @@ public class CustomMetricsService
     public CustomMetricsService(ILogger<CustomMetricsService> logger)
     {
         _logger = logger;
-        _meter = new Meter("CustomMetrics", "1.0.0");
+        // Usar o ObservabilityMetrics para garantir que o Meter seja registrado no OpenTelemetry
+        _meter = ObservabilityMetrics.GetOrCreateMeter("CustomMetrics", "1.0.0");
         
         // Criar métricas usando o Meter
         _requestCounter = _meter.CreateCounter<int>("custom_requests_total", "count", "Total de requisições customizadas");

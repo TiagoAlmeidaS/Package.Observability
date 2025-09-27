@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Package.Observability;
+using Package.Observability.Exceptions;
 using Xunit;
 
 namespace Package.Observability.IntegrationTests;
@@ -184,9 +185,7 @@ public class ConfigurationScenariosTests
 
         // 2. Verificar se métricas NÃO estão disponíveis
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.IsSuccessStatusCode.Should().BeTrue();
-        var metrics = await metricsResponse.Content.ReadAsStringAsync();
-        metrics.Should().NotContain("weather_requests_total");
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         // 3. Verificar se logging está configurado
         var logger = factory.Services.GetRequiredService<ILogger<ConfigurationScenariosTests>>();
@@ -314,7 +313,7 @@ public class ConfigurationScenariosTests
     public async Task InvalidConfiguration_ShouldThrowConfigurationException()
     {
         // Arrange & Act
-        var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        var exception = await Assert.ThrowsAsync<ObservabilityConfigurationException>(async () =>
         {
             using var factory = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
@@ -327,6 +326,21 @@ public class ConfigurationScenariosTests
                             ["Observability:PrometheusPort"] = "99999" // Porta inválida
                         };
                         configBuilder.AddInMemoryCollection(config);
+                    });
+
+                    // Sobrescrever a configuração de serviços para forçar a validação
+                    builder.ConfigureServices((context, services) =>
+                    {
+                        // Limpar serviços existentes
+                        services.Clear();
+                        
+                        // Reconfigurar serviços básicos
+                        services.AddControllers();
+                        services.AddEndpointsApiExplorer();
+                        services.AddSwaggerGen();
+                        
+                        // Registrar observabilidade com configuração inválida
+                        services.AddObservability(context.Configuration);
                     });
                 });
 

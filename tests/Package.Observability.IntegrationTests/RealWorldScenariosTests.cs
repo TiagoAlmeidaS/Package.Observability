@@ -42,7 +42,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -103,7 +104,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -164,7 +166,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -208,7 +211,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -250,7 +254,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -298,7 +303,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -340,7 +346,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -356,7 +363,7 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
         metricsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         var metricsContent = await metricsResponse.Content.ReadAsStringAsync();
         metricsContent.Should().NotBeNullOrEmpty();
-        metricsContent.Should().Contain("http_requests_total"); // Deve conter métricas HTTP
+        metricsContent.Should().Contain("http_server_request_duration_seconds"); // Deve conter métricas HTTP
     }
 
     [Fact]
@@ -379,7 +386,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 
@@ -412,7 +420,8 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
 
             builder.ConfigureServices((context, services) =>
             {
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         }).CreateClient();
 

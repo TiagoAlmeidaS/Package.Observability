@@ -62,7 +62,7 @@ services:
       - "4318:4318"    # OTLP HTTP receiver
     volumes:
       - ./observability/tempo.yml:/etc/tempo.yml
-      - tempo-data:/tmp/tempo
+      - tempo-data:/var/tempo
     command: -config.file=/etc/tempo.yml
     networks:
       - observability

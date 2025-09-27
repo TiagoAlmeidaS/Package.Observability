@@ -462,7 +462,7 @@ public class CodeConfigurationTests
     public async Task CodeConfiguration_InvalidSettings_ShouldThrowException()
     {
         // Arrange & Act
-        var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        var exception = await Assert.ThrowsAsync<ArgumentException>(async () =>
         {
             using var factory = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>

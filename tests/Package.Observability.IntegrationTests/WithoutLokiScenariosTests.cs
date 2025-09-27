@@ -45,11 +45,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis
+        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.IsSuccessStatusCode.Should().BeTrue();
-        var metrics = await metricsResponse.Content.ReadAsStringAsync();
-        metrics.Should().NotContain("weather_requests_total");
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         // 3. Verificar se logging está configurado (console)
         var logger = factory.Services.GetRequiredService<ILogger<WithoutLokiScenariosTests>>();
@@ -131,9 +129,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
+        // 2. Verificar se métricas estão disponíveis (endpoint deve retornar 200)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         var metrics = await metricsResponse.Content.ReadAsStringAsync();
         metrics.Should().Contain("process_runtime_dotnet_gc_heap_size_bytes");
 
@@ -176,11 +174,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis
+        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.IsSuccessStatusCode.Should().BeTrue();
-        var metrics = await metricsResponse.Content.ReadAsStringAsync();
-        metrics.Should().NotContain("weather_requests_total");
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         // 3. Verificar se logging está configurado (console)
         var logger = factory.Services.GetRequiredService<ILogger<WithoutLokiScenariosTests>>();
@@ -223,9 +219,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
+        // 2. Verificar se métricas estão disponíveis (endpoint deve retornar 200)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         var metrics = await metricsResponse.Content.ReadAsStringAsync();
         metrics.Should().Contain("process_runtime_dotnet_gc_heap_size_bytes");
 
@@ -275,9 +271,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
+        // 2. Verificar se métricas estão disponíveis (endpoint deve retornar 200)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         var metrics = await metricsResponse.Content.ReadAsStringAsync();
         metrics.Should().Contain("process_runtime_dotnet_gc_heap_size_bytes");
 
@@ -320,11 +316,9 @@ public class WithoutLokiScenariosTests
         var response = await client.GetAsync("/WeatherForecast");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        // 2. Verificar se métricas NÃO estão disponíveis
+        // 2. Verificar se métricas NÃO estão disponíveis (endpoint deve retornar 404)
         var metricsResponse = await client.GetAsync("/metrics");
-        metricsResponse.IsSuccessStatusCode.Should().BeTrue();
-        var metrics = await metricsResponse.Content.ReadAsStringAsync();
-        metrics.Should().NotContain("weather_requests_total");
+        metricsResponse.StatusCode.Should().Be(HttpStatusCode.NotFound);
 
         // 3. Verificar se logging está configurado (console)
         var logger = factory.Services.GetRequiredService<ILogger<WithoutLokiScenariosTests>>();

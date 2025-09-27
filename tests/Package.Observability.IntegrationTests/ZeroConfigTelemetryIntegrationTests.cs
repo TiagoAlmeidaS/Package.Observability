@@ -35,8 +35,8 @@ public class ZeroConfigTelemetryIntegrationTests : IClassFixture<WebApplicationF
 
             builder.ConfigureServices((context, services) =>
             {
-                // Garantir que o middleware automático está registrado
-                services.AddObservability(context.Configuration);
+                // A observabilidade já está registrada no Program.cs
+                // Não precisamos registrar novamente para evitar duplicação
             });
         });
 

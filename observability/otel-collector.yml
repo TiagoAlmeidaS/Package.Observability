@@ -12,6 +12,7 @@ processors:
     send_batch_size: 1024
   memory_limiter:
     limit_mib: 512
+    check_interval: 1s
   resource:
     attributes:
       - key: service.name
@@ -35,16 +36,9 @@ exporters:
     tls:
       insecure: true
   
-  # Loki logs
-  loki:
-    endpoint: http://loki:3100/loki/api/v1/push
-    labels:
-      attributes:
-        service.name: "service_name"
-        service.version: "service_version"
-      resource:
-        service.name: "service_name"
-        service.version: "service_version"
+  # Debug exporter for logs
+  debug:
+    verbosity: detailed
 
 service:
   pipelines:
@@ -61,14 +55,12 @@ service:
     logs:
       receivers: [otlp]
       processors: [memory_limiter, batch, resource]
-      exporters: [loki]
+      exporters: [debug]
   
   extensions: [health_check, pprof, zpages]
   telemetry:
     logs:
       level: "info"
-    metrics:
-      address: "0.0.0.0:8888"
 
 extensions:
   health_check:

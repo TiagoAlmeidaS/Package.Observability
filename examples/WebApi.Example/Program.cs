@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Package.Observability;
 using WebApi.Example.Services;
 
@@ -36,9 +37,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Expor endpoint de métricas Prometheus apenas se métricas estiverem habilitadas
-var observabilityConfig = builder.Configuration.GetSection("Observability");
-var enableMetrics = observabilityConfig.GetValue<bool>("EnableMetrics", true); // Default true para manter compatibilidade
-if (enableMetrics)
+var observabilityOptions = app.Services.GetRequiredService<IOptions<ObservabilityOptions>>().Value;
+if (observabilityOptions.EnableMetrics)
 {
     app.MapPrometheusScrapingEndpoint();
 }
