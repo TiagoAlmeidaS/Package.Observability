@@ -44,7 +44,25 @@ if (observabilityOptions.EnableMetrics)
 }
 
 // Expor endpoint de health checks
-app.MapHealthChecks("/health");
+app.MapHealthChecks("/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        var result = System.Text.Json.JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            checks = report.Entries.Select(entry => new
+            {
+                name = entry.Key,
+                status = entry.Value.Status.ToString(),
+                description = entry.Value.Description,
+                data = entry.Value.Data
+            })
+        });
+        await context.Response.WriteAsync(result);
+    }
+});
 
 // Log de inicialização
 var logger = app.Services.GetRequiredService<ILogger<Program>>();

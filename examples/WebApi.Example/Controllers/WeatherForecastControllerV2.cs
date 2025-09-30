@@ -7,7 +7,7 @@ namespace WebApi.Example.Controllers;
 /// Similar ao Tempo, Loki e Prometheus - funciona automaticamente
 /// </summary>
 [ApiController]
-[Route("[controller]")]
+[Route("WeatherForecastV2")]
 public class WeatherForecastControllerV2 : ControllerBase
 {
     private readonly ILogger<WeatherForecastControllerV2> _logger;

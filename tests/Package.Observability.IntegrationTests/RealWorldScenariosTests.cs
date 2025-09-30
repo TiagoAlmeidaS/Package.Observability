@@ -224,7 +224,7 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
         {
             tasks.Add(client.GetAsync("/api/AutoWeather")); // GET
             tasks.Add(client.GetAsync($"/api/AutoWeatherService/forecast/{i + 1}")); // GET com parâmetro
-            tasks.Add(client.GetAsync("/api/AutoWeatherService/forecast/date/2024-12-25")); // GET com data
+            tasks.Add(client.GetAsync($"/api/AutoWeatherService/forecast/date/{DateTime.Now.AddDays(i + 1):yyyy-MM-dd}")); // GET com data futura
         }
 
         var responses = await Task.WhenAll(tasks);
@@ -313,7 +313,7 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
         {
             await client.GetAsync("/api/AutoWeather"),
             await client.GetAsync("/api/AutoWeatherService/forecast/3"),
-            await client.GetAsync("/api/AutoWeatherService/forecast/date/2024-12-25"),
+            await client.GetAsync($"/api/AutoWeatherService/forecast/date/{DateTime.Now.AddDays(1):yyyy-MM-dd}"),
             await client.GetAsync("/api/AutoWeather/0") // Deve gerar erro
         };
 
@@ -354,7 +354,7 @@ public class RealWorldScenariosTests : IClassFixture<WebApplicationFactory<Progr
         // Act - Fazer algumas requisições para gerar métricas
         await client.GetAsync("/api/AutoWeather");
         await client.GetAsync("/api/AutoWeatherService/forecast/3");
-        await client.GetAsync("/api/AutoWeatherService/forecast/date/2024-12-25");
+        await client.GetAsync($"/api/AutoWeatherService/forecast/date/{DateTime.Now.AddDays(1):yyyy-MM-dd}");
 
         // Verificar se o endpoint de métricas está acessível
         var metricsResponse = await client.GetAsync("/metrics");
